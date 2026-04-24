@@ -202,7 +202,7 @@
     .contact-link:hover .contact-link-arrow { transform: translate(4px, -4px); color: var(--accent); }
 
     /* Back to top */
-    .back-top { position: fixed; bottom: 2rem; right: 2rem; z-index: 200; width: 42px; height: 42px; background: var(--bg2); border: 1px solid var(--line); border-radius: 2px; display: flex; align-items: center; justify-content: center; color: var(--muted); cursor: none; opacity: 0; pointer-events: none; transform: translateY(10px); transition: opacity 0.3s, transform 0.3s, border-color 0.2s, color 0.2s; }
+    .back-top { position: fixed; bottom: 4rem; right: 2rem; z-index: 200; width: 42px; height: 42px; background: var(--bg2); border: 1px solid var(--line); border-radius: 2px; display: flex; align-items: center; justify-content: center; color: var(--muted); cursor: none; opacity: 0; pointer-events: none; transform: translateY(10px); transition: opacity 0.3s, transform 0.3s, border-color 0.2s, color 0.2s; }
     .back-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
     .back-top:hover { border-color: var(--accent); color: var(--accent); }
     .back-top svg { width: 14px; height: 14px; pointer-events: none; }
@@ -218,7 +218,7 @@
 
     @media (max-width: 900px) {
       .about-photo-wrap { width: 160px; height: 200px; align-self: flex-start; }
-      .back-top { bottom: 1.5rem; right: 1.5rem; }
+      .back-top { bottom: 3.5rem; right: 1.5rem; }
     }
     footer { padding: 2rem 3rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
     .footer-copy { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted); }
@@ -425,7 +425,7 @@
       "Fuse AI Fellow · IEEE KEC Vice Chair · Robotics enthusiast.",
 
     // ── Profile photo ─────────────────────────────────────────
-    // Set to your image URL or relative path, e.g. "assets/photo.jpg"
+    // Set to your image URL or relative path, e.g. "photo.jpg"
     // Leave null to show placeholder
     profilePhoto: "photo.jpg",
 
