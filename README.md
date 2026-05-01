@@ -4,7 +4,7 @@ Personal portfolio website for **Aaradhya Dev Tamrakar** — BEI IV/I student at
 
 ## About
 
-This site showcases my work as an electronics & instrumentation engineer, IEEE KEC Vice Chair, Fuse AI Fellow (Fusemachines 2026), and robotics enthusiast. It features a dark-themed, minimalist design with custom CSS animations and interactive elements.
+This site showcases my work as an Electronics, Communication and Information Engineering student, IEEE KEC Vice Chair, Fuse AI Fellow (Fusemachines 2026), and robotics enthusiast. It features a dark-themed, minimalist design with custom CSS animations and interactive elements.
 
 ## Features
 
@@ -26,15 +26,13 @@ This site showcases my work as an electronics & instrumentation engineer, IEEE K
 
 ## Adding Your Profile Photo
 
-1. Add your portrait to the repo, e.g. `assets/photo.jpg` (recommended: ~400×500 px minimum).
-2. In `index.html`, locate:
-   ```js
-   profilePhoto: null,
-   ```
-3. Change to:
-   ```js
-   profilePhoto: "assets/photo.jpg",
-   ```
+1. Add your portrait to the repo root as `photo.jpg` (recommended: ~400×500 px minimum).
+2. The config already has `profilePhoto: "photo.jpg"` — just push `photo.jpg` to the repo root.
+
+## Adding CV Download
+
+1. Place `AARADHYA_DEV_TAMRAKAR_CV.pdf` in the repo root.
+2. The hero section already has a **Download CV** button linked to `AARADHYA_DEV_TAMRAKAR_CV.pdf` — no code changes needed.
 
 ## Local Development
 
