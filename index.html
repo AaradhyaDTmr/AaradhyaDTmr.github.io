@@ -348,6 +348,11 @@
     .nav-drawer a { font-family: var(--mono); font-size: 1rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 1rem 2rem; transition: color 0.2s; }
     .nav-drawer a:hover { color: var(--accent); }
 
+    /* Tablet — fix contact/about gap at mid-width */
+    @media (max-width: 1100px) {
+      .contact-layout, .about-layout { gap: 3rem; }
+    }
+
     /* Tablet */
     @media (max-width: 1100px) {
       #hero { gap: 2.5rem; padding: 0 2rem; }
