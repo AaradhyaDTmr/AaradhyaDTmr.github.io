@@ -66,11 +66,18 @@
     gtag('config', 'G-P38642CDGB');
   </script>
 
-  <!-- Font preload (primary display font — reduces FOUT) -->
+  <!-- Fonts — non-blocking async load to eliminate render-blocking penalty -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500&display=swap" />
+  <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500&display=swap" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500&display=swap" /></noscript>
   <style>
+    /* Fallback fonts sized to match web fonts — reduces CLS during font swap */
+    @font-face { font-family: 'Cormorant Garamond'; font-display: swap; src: local('Georgia'); size-adjust: 103%; }
+    @font-face { font-family: 'DM Mono'; font-display: swap; src: local('Courier New'); size-adjust: 95%; }
+    @font-face { font-family: 'Instrument Sans'; font-display: swap; src: local('Arial'); size-adjust: 100%; }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -901,7 +908,7 @@
     // Profile photo
     const photoWrap = document.getElementById('about-photo-wrap');
     if (DATA.profilePhoto) {
-      photoWrap.innerHTML = `<img src="${DATA.profilePhoto}" alt="Aaradhya Dev Tamrakar" class="about-photo" loading="lazy" />`;
+      photoWrap.innerHTML = `<img src="${DATA.profilePhoto}" alt="Aaradhya Dev Tamrakar" class="about-photo" loading="lazy" width="220" height="280" />`;
     } else {
       photoWrap.innerHTML = `<div class="about-photo-placeholder">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
