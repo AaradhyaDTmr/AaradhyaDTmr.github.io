@@ -422,7 +422,7 @@
 </head>
 <body>
 
-  <a href="#projects" class="skip-link">Skip to main content</a>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
 
   <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -431,7 +431,7 @@
     <div class="cursor-dot" id="cursorDot"></div>
   </div>
 
-  <nav id="nav">
+  <nav id="nav" aria-label="Primary navigation">
     <a href="#hero" class="nav-logo" id="nav-logo">ADT<span>.</span></a>
     <ul class="nav-links" id="nav-links"></ul>
     <div class="nav-right">
@@ -440,13 +440,13 @@
         <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
       </button>
-      <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+      <button class="nav-hamburger" id="navHamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navDrawer">
         <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
 
-  <div class="nav-drawer" id="navDrawer">
+  <div class="nav-drawer" id="navDrawer" role="navigation" aria-label="Mobile navigation">
     <a href="#projects" class="drawer-link">Projects</a>
     <a href="#apps" class="drawer-link">Apps</a>
     <a href="#experience" class="drawer-link">Experience</a>
@@ -455,7 +455,9 @@
     <a href="#contact" class="drawer-link">Contact</a>
   </div>
 
-  <section id="hero">
+  <main id="main-content">
+
+  <section id="hero" aria-label="Introduction">
     <div class="hero-bg-lines"></div>
     <div class="hero-glow"></div>
     <div class="hero-left">
@@ -478,40 +480,40 @@
 
   <div class="divider"></div>
 
-  <section id="projects">
+  <section id="projects" aria-labelledby="projects-heading">
     <div class="section-header reveal">
       <div class="section-num">01 / Projects</div>
-      <h2 class="section-title">Selected <em>Engineering Work</em></h2>
+      <h2 class="section-title" id="projects-heading">Selected <em>Engineering Work</em></h2>
     </div>
     <div class="projects-grid reveal" id="projects-grid"></div>
   </section>
 
   <div class="divider"></div>
 
-  <section id="apps">
+  <section id="apps" aria-labelledby="apps-heading">
     <div class="section-header reveal">
       <div class="section-num">02 / Apps</div>
-      <h2 class="section-title">Live <em>Applications</em></h2>
+      <h2 class="section-title" id="apps-heading">Live <em>Applications</em></h2>
     </div>
     <div class="apps-grid reveal" id="apps-grid"></div>
   </section>
 
   <div class="divider"></div>
 
-  <section id="experience">
+  <section id="experience" aria-labelledby="experience-heading">
     <div class="section-header reveal">
       <div class="section-num">03 / Experience</div>
-      <h2 class="section-title">Roles &amp; <em>Contributions</em></h2>
+      <h2 class="section-title" id="experience-heading">Roles &amp; <em>Contributions</em></h2>
     </div>
     <div class="exp-list" id="exp-list"></div>
   </section>
 
   <div class="divider"></div>
 
-  <section id="skills">
+  <section id="skills" aria-labelledby="skills-heading">
     <div class="section-header reveal">
       <div class="section-num">04 / Skills</div>
-      <h2 class="section-title">Technical <em>Expertise</em></h2>
+      <h2 class="section-title" id="skills-heading">Technical <em>Expertise</em></h2>
     </div>
     <div class="skill-legend reveal" id="skills-legend"></div>
     <div class="skills-layout reveal" id="skills-layout"></div>
@@ -519,7 +521,7 @@
 
   <div class="divider"></div>
 
-  <section id="about">
+  <section id="about" aria-label="About Aaradhya">
     <div class="about-layout">
       <div class="about-left-col">
         <div class="about-photo-wrap" id="about-photo-wrap"></div>
@@ -531,7 +533,7 @@
 
   <div class="divider"></div>
 
-  <section id="contact">
+  <section id="contact" aria-label="Contact Aaradhya">
     <div class="contact-layout">
       <div class="reveal" id="contact-intro"></div>
       <div class="reveal">
@@ -561,11 +563,13 @@
     </div>
   </section>
 
+  </main>
+
   <button class="back-top" id="backTop" aria-label="Back to top">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
-  <footer>
+  <footer role="contentinfo">
     <div class="footer-copy" id="footer-copy"></div>
     <div class="footer-socials" id="footer-socials"></div>
   </footer>
@@ -594,11 +598,11 @@
 
     // ── Status card (hero) ───────────────────────────────────
     status: [
-      { label: "Focus",      value: "Fusemachines AI Fellowship — Week 1 Active" },
-      { label: "Role",       value: "IEEE KEC Vice Chair · EPC Event Manager" },
-      { label: "Fellowship", value: "Fuse AI Fellow · NSSR DataCamp Fellow (Cohort 2)" },
-      { label: "Stack",      value: "Python · Kotlin · C · FastAPI · SQL · MATLAB" },
-      { label: "Interests",  value: "Embedded Systems · AI/ML · Edge Intelligence" },
+      { label: "Focus",      value: "Fusemachines AI Fellowship — Week 1" },
+      { label: "Role",       value: "IEEE KEC Vice Chair · EPC Event Mgr" },
+      { label: "Fellowship", value: "Fuse AI Fellow · NSSR DataCamp (C2)" },
+      { label: "Stack",      value: "Python · Kotlin · C · FastAPI · SQL" },
+      { label: "Interests",  value: "Embedded Systems · AI/ML · Edge AI" },
     ],
 
     // ── Projects ─────────────────────────────────────────────
@@ -951,12 +955,16 @@
     hamburger.addEventListener('click', () => {
       const isOpen = drawer.classList.toggle('open');
       hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      hamburger.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
       document.body.style.overflow = isOpen ? 'hidden' : '';
     });
     drawer.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         drawer.classList.remove('open');
         hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        hamburger.setAttribute('aria-label', 'Open menu');
         document.body.style.overflow = '';
       });
     });
