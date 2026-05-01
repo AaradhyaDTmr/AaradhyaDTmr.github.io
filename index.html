@@ -57,6 +57,15 @@
   <!-- Favicon (inline SVG — no extra file needed) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230d0e11'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='13' font-weight='400' fill='%23d4a85a'>ADT</text></svg>" />
 
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TW0YM4FF0X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TW0YM4FF0X');
+  </script>
+
   <!-- Font preload (primary display font — reduces FOUT) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -467,7 +476,7 @@
       <div class="hero-actions">
         <a href="#projects" class="btn-primary" aria-label="View Aaradhya's work">View Work</a>
         <a href="#contact" class="btn-ghost" aria-label="Get in touch with Aaradhya">Get in touch →</a>
-        <a href="AARADHYA_DEV_TAMRAKAR_CV.pdf" class="btn-ghost" download aria-label="Download Aaradhya's CV">Download CV ↓</a>
+        <a href="AARADHYA_DEV_TAMRAKAR_CV.pdf" class="btn-ghost" download aria-label="Download Aaradhya's CV" onclick="gtag('event','cv_download',{event_category:'engagement',event_label:'Hero CV button'})">Download CV ↓</a>
       </div>
     </div>
     <div class="hero-right">
@@ -1077,6 +1086,7 @@
       });
       status.textContent = '✓ Message sent. I\'ll respond within 48 hours.';
       status.style.color = 'var(--accent2)';
+      gtag('event','form_submit',{event_category:'engagement',event_label:'Contact form — EmailJS'});
       this.reset();
       btn.disabled = false;
       btn.textContent = 'Send Message →';
@@ -1095,6 +1105,7 @@
       if (res.ok) {
         status.textContent = '✓ Message sent. I\'ll respond within 48 hours.';
         status.style.color = 'var(--accent2)';
+        gtag('event','form_submit',{event_category:'engagement',event_label:'Contact form — Formspree'});
         this.reset();
         btn.disabled = false;
         btn.textContent = 'Send Message →';
