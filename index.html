@@ -223,9 +223,30 @@
     }
     footer { padding: 2rem 3rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
     .footer-copy { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted); }
-    .footer-socials { display: flex; gap: 1.5rem; }
-    .footer-socials a { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; padding: 0.5rem 0.25rem; }
-    .footer-socials a:hover { color: var(--accent); }
+    .footer-socials { display: flex; gap: 1.25rem; align-items: center; }
+    .footer-socials a { color: var(--muted); text-decoration: none; transition: color 0.2s, transform 0.2s; display: flex; align-items: center; padding: 0.25rem; }
+    .footer-socials a:hover { color: var(--accent); transform: translateY(-2px); }
+    .footer-socials a svg { width: 16px; height: 16px; pointer-events: none; }
+
+    /* Scroll progress bar */
+    .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); z-index: 9999; transition: width 0.1s linear; }
+
+    /* Contact form */
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-field { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .form-input, .form-textarea { background: var(--bg); border: 1px solid var(--line); border-radius: 2px; padding: 0.75rem 1rem; color: var(--text); font-family: var(--sans); font-size: 0.85rem; outline: none; transition: border-color 0.2s; width: 100%; }
+    .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-submit { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; background: var(--accent); color: var(--bg); border: none; padding: 0.85rem 2rem; border-radius: 2px; cursor: pointer; transition: opacity 0.2s, transform 0.2s; align-self: flex-start; }
+    .form-submit:hover { opacity: 0.85; transform: translateY(-1px); }
+    .form-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .form-status { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--accent2); margin-top: 0.25rem; min-height: 1rem; }
+
+    @media (max-width: 768px) {
+      .form-row { grid-template-columns: 1fr; }
+    }
 
     /* Animations */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
@@ -287,6 +308,8 @@
   </style>
 </head>
 <body>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
 
   <div class="cursor" id="cursor">
     <div class="cursor-ring" id="cursorRing"></div>
@@ -397,7 +420,30 @@
   <section id="contact">
     <div class="contact-layout">
       <div class="reveal" id="contact-intro"></div>
-      <div class="contact-links reveal" id="contact-links"></div>
+      <div class="reveal">
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label" for="form-name">Your Name</label>
+              <input class="form-input" id="form-name" type="text" placeholder="Aaradhya Dev Tamrakar" required />
+            </div>
+            <div class="form-field">
+              <label class="form-label" for="form-email">Email</label>
+              <input class="form-input" id="form-email" type="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="form-subject">Subject</label>
+            <input class="form-input" id="form-subject" type="text" placeholder="Project idea / internship / collaboration" />
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="form-message">Message</label>
+            <textarea class="form-textarea" id="form-message" placeholder="I have an idea / opportunity / interesting problem..." required></textarea>
+          </div>
+          <button class="form-submit" type="submit" id="form-btn">Send Message →</button>
+          <div class="form-status" id="form-status"></div>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -753,25 +799,22 @@
       <div class="section-num" style="margin-bottom:1rem">06 / Contact</div>
       <h2 class="contact-tagline">${DATA.contactTagline}</h2>
       <p class="contact-note">${DATA.contactNote}</p>`;
-
-    const links = document.getElementById('contact-links');
-    DATA.contactLinks.forEach(c => {
-      links.innerHTML += `
-        <a href="${c.href}" class="contact-link" target="_blank" rel="noopener">
-          <div>
-            <div class="contact-link-label">${c.label}</div>
-            <div class="contact-link-detail">${c.detail}</div>
-          </div>
-          <span class="contact-link-arrow">↗</span>
-        </a>`;
-    });
   }
+
+  const SOCIAL_ICONS = {
+    GitHub:    `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>`,
+    LinkedIn:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`,
+    X:         `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg>`,
+    YouTube:   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>`,
+    Facebook:  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>`,
+  };
 
   function renderFooter() {
     document.getElementById('footer-copy').textContent = DATA.footerCopy;
     const socials = document.getElementById('footer-socials');
     DATA.footerSocials.forEach(s => {
-      socials.innerHTML += `<a href="${s.href}" target="_blank" rel="noopener">${s.label}</a>`;
+      const icon = SOCIAL_ICONS[s.label] || s.label;
+      socials.innerHTML += `<a href="${s.href}" target="_blank" rel="noopener" aria-label="${s.label}" title="${s.label}">${icon}</a>`;
     });
   }
 
@@ -829,12 +872,16 @@
     requestAnimationFrame(animateCursor);
   })();
 
-  // ── Nav scroll ──────────────────────────────────────────────
+  // ── Nav scroll + progress bar (single listener) ─────────────
   const nav = document.getElementById('nav');
   const backTop = document.getElementById('backTop');
+  const progressBar = document.getElementById('scrollProgress');
   window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-    backTop.classList.toggle('visible', window.scrollY > 400);
+    const scrollY = window.scrollY;
+    nav.classList.toggle('scrolled', scrollY > 50);
+    backTop.classList.toggle('visible', scrollY > 400);
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    progressBar.style.width = (docHeight > 0 ? (scrollY / docHeight * 100) : 0) + '%';
   });
   backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
@@ -843,6 +890,55 @@
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // ── Contact form → Formspree ────────────────────────────────
+  // To activate: go to formspree.io, create a form → aaradhyadevtmr@gmail.com,
+  // then replace YOUR_FORMSPREE_ID with your actual form ID (e.g. xpwzgkla)
+  const FORMSPREE_ID = 'YOUR_FORMSPREE_ID';
+
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn    = document.getElementById('form-btn');
+    const status = document.getElementById('form-status');
+    const formData = {
+      name:    document.getElementById('form-name').value,
+      email:   document.getElementById('form-email').value,
+      subject: document.getElementById('form-subject').value || 'Portfolio Contact',
+      message: document.getElementById('form-message').value,
+    };
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    status.textContent = '';
+
+    if (FORMSPREE_ID === 'YOUR_FORMSPREE_ID') {
+      const mailto = `mailto:aaradhyadevtmr@gmail.com?subject=${encodeURIComponent(formData.subject)}&body=${encodeURIComponent('From: ' + formData.name + ' (' + formData.email + ')\n\n' + formData.message)}`;
+      window.location.href = mailto;
+      status.textContent = 'Opening your mail client...';
+      btn.disabled = false;
+      btn.textContent = 'Send Message →';
+      return;
+    }
+
+    try {
+      const res = await fetch('https://formspree.io/f/' + FORMSPREE_ID, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      if (res.ok) {
+        status.textContent = '✓ Message sent. I\'ll respond within 48 hours.';
+        status.style.color = 'var(--accent2)';
+        this.reset();
+      } else {
+        throw new Error('failed');
+      }
+    } catch {
+      status.textContent = 'Something went wrong — email me at aaradhyadevtmr@gmail.com';
+      status.style.color = 'var(--accent)';
+    }
+    btn.disabled = false;
+    btn.textContent = 'Send Message →';
+  });
   </script>
 </body>
 </html>
