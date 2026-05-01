@@ -16,6 +16,7 @@ This site showcases my work as an Electronics, Communication and Information Eng
 - Profile photo with grayscale-to-colour hover effect
 - Proficiency dot scale (●●● / ●●○ / ●○○) replacing arbitrary skill bars
 - Professional portfolio layout — projects, experience, skills, contact
+- Google Analytics 4 — pageview tracking, CV download events, contact form conversion events
 
 ## Technologies Used
 
@@ -23,6 +24,7 @@ This site showcases my work as an Electronics, Communication and Information Eng
 - CSS3 (Custom properties, Flexbox, Grid)
 - JavaScript (Vanilla)
 - Google Fonts (Cormorant Garamond, DM Mono, Instrument Sans)
+- Google Analytics 4 (GA4) — visitor tracking, CV download events, contact form events
 
 ## Adding Your Profile Photo
 
