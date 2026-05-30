@@ -111,7 +111,7 @@
       --bg:       #f5f2ec;
       --bg2:      #ede8de;
       --bg3:      #e3dcd1;
-      --line:     rgba(0,0,0,0.14);
+      --line:     rgba(0,0,0,0.10);
       --text:     #2a2420;
       --muted:    #6b5e55;
       --accent:     #7a4800;
@@ -123,10 +123,10 @@
       --accent-a80: rgba(122,72,0,0.85);
       --heading:    #0e0a06;
       --nav-scrolled-bg: rgba(245,242,236,0.95);
-      --glass-bg:    rgba(0,0,0,0.025);
-      --glass-border: rgba(0,0,0,0.09);
+      --glass-bg:    rgba(0,0,0,0.015);
+      --glass-border: rgba(0,0,0,0.07);
       --glass-blur:  8px;
-      --card-shadow: 0 4px 24px 0 rgba(80,50,20,0.10);
+      --card-shadow: none;
     }
 
     /* Smooth theme transition — scoped to avoid fighting CSS animations */
@@ -195,10 +195,10 @@
     .nav-logo { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; letter-spacing: 0.02em; color: var(--heading); text-decoration: none; }
     .nav-logo span { color: var(--accent); }
     .nav-links { display: flex; gap: 2.5rem; list-style: none; justify-content: center; }
-    .nav-links a { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); font-weight: 500; text-decoration: none; transition: color 0.2s; padding: 0.5rem 0.25rem; }
+    .nav-links a { font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.10em; text-transform: uppercase; color: var(--text); font-weight: 500; text-decoration: none; transition: color 0.2s; padding: 0.5rem 0.25rem; }
     .nav-links a:hover { color: var(--accent); }
     .nav-cta {
-      font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; color: var(--accent); text-decoration: none;
+      font-family: var(--mono); font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; color: var(--accent); text-decoration: none;
       border: 1px solid var(--accent-a80); padding: 0.5rem 1.2rem; border-radius: 2px;
       position: relative; overflow: hidden;
       transition: background 0.25s, color 0.25s, box-shadow 0.3s;
@@ -284,8 +284,48 @@
       .magnetic-wrap button { cursor: none; }
     }
     .hero-right { position: relative; z-index: 1; opacity: 0; animation: fadeIn 1.2s 0.7s forwards; }
-    .status-card { border: 1px solid var(--line); background: var(--bg2); border-radius: 4px; padding: 2rem; position: relative; }
-    .status-card::before { content: ''; position: absolute; top: -1px; left: 2rem; right: 2rem; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
+    .status-card { border-radius: 4px; padding: 2rem; position: relative; background: var(--bg2); overflow: hidden; }
+    /* Perpetual revolving border using conic-gradient animation */
+    .status-card::before {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 5px;
+      background: conic-gradient(
+        from var(--border-angle, 0deg),
+        transparent 0deg,
+        transparent 60deg,
+        var(--accent) 80deg,
+        var(--accent2) 120deg,
+        var(--accent) 160deg,
+        transparent 180deg,
+        transparent 240deg,
+        var(--accent2) 260deg,
+        var(--accent) 300deg,
+        transparent 360deg
+      );
+      animation: border-revolve 4s linear infinite;
+      z-index: 0;
+    }
+    .status-card::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border-radius: 4px;
+      background: var(--bg2);
+      z-index: 0;
+    }
+    @property --border-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+    @keyframes border-revolve {
+      from { --border-angle: 0deg; }
+      to   { --border-angle: 360deg; }
+    }
+    .status-card .status-label,
+    .status-card .status-items { position: relative; z-index: 1; }
     .status-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
     .status-dot { position: relative; width: 8px; height: 8px; flex-shrink: 0; }
     .status-dot::before, .status-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; }
@@ -319,17 +359,17 @@
     .divider::before {
       content: '';
       position: absolute;
-      top: -1px;
+      top: -1.5px;
       left: 0;
       right: 0;
-      height: 3px;
+      height: 4px;
       background: transparent;
-      border-top: 1.5px solid var(--accent);
-      filter: drop-shadow(0 0 3px var(--accent));
+      border-top: 2.5px solid var(--accent);
+      filter: drop-shadow(0 0 5px var(--accent)) drop-shadow(0 0 2px var(--accent));
       border-radius: 2px;
       clip-path: inset(0 85% 0 0);
       animation: arc-sweep-cw 5s linear infinite;
-      opacity: 0.65;
+      opacity: 0.9;
     }
     /* Revolving arc — CCW secondary */
     .divider::after {
@@ -340,11 +380,12 @@
       right: 0;
       height: 3px;
       background: transparent;
-      border-top: 1px solid var(--accent2);
+      border-top: 1.5px solid var(--accent2);
+      filter: drop-shadow(0 0 4px var(--accent2));
       border-radius: 2px;
       clip-path: inset(0 0 0 93%);
       animation: arc-sweep-ccw 7s linear infinite;
-      opacity: 0.35;
+      opacity: 0.6;
     }
     @keyframes arc-sweep-cw {
       0%   { clip-path: inset(0 100% 0 0);   opacity: 0;    }
@@ -429,7 +470,7 @@
 
     /* Skills */
     #skills { background: var(--bg2); }
-    .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+    .skills-layout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
     .skill-group { background: var(--bg2); padding: 2.5rem; }
     .skill-group:hover { background: var(--bg3); }
     .skill-group-title { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; }
@@ -446,7 +487,7 @@
 
     /* About */
     #about { background: var(--bg); }
-    .about-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .about-layout { display: grid; grid-template-columns: 380px 1fr; gap: 5rem; align-items: start; }
     .about-text p { font-size: 0.95rem; line-height: 1.9; color: var(--text); margin-bottom: 1.2rem; }
     .about-text p strong { color: var(--heading); font-weight: 500; }
     .about-stats { display: flex; flex-direction: column; gap: 0; }
@@ -499,8 +540,8 @@
     .about-photo-wrap {
       position: relative;
       width: 100%;
-      max-width: 420px;
-      margin: 0 auto 2rem;
+      max-width: 360px;
+      margin: 0 0 2rem;
       flex-shrink: 0;
     }
     .about-photo-wrap::before { content: ''; position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 1px solid var(--accent); border-radius: 2px; opacity: 0.35; transition: opacity 0.4s; }
@@ -569,14 +610,14 @@
     .about-photo:hover { filter: grayscale(0%); }
     .about-photo-placeholder { width: 100%; aspect-ratio: 3/4; background: var(--bg2); border: 1px dashed var(--accent-a35); border-radius: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--muted); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; }
     .about-photo-placeholder svg { width: 28px; height: 28px; opacity: 0.4; }
-    .about-left-col { display: flex; flex-direction: column; gap: 2rem; align-items: center; text-align: left; }
+    .about-left-col { display: flex; flex-direction: column; gap: 0; align-items: flex-start; text-align: left; }
 
     @media (max-width: 900px) {
-      .about-photo-wrap { width: 160px; height: 200px; align-self: flex-start; }
+      .about-photo-wrap { width: 100%; max-width: 260px; }
       .back-top { bottom: 4.5rem; right: 1.5rem; }
     }
-    footer { padding: 2rem 3rem; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
-    .footer-copy { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted); }
+    footer { padding: 2rem 3rem; border-top: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
+    .footer-copy { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; color: var(--muted); text-align: center; }
     .footer-socials { display: flex; gap: 1.25rem; align-items: center; }
     .footer-socials a { color: var(--muted); text-decoration: none; transition: color 0.2s, transform 0.2s; display: flex; align-items: center; padding: 0.25rem; }
     .footer-socials a:hover { color: var(--accent); transform: translateY(-2px); }
@@ -657,6 +698,8 @@
       #hero { gap: 2.5rem; padding: 0 2rem; }
       section { padding: 6rem 2rem; }
       nav { padding: 1.5rem 2rem; }
+      .about-layout { grid-template-columns: 280px 1fr; gap: 3.5rem; }
+      .skills-layout { grid-template-columns: repeat(2, 1fr); }
     }
 
     /* Mobile */
@@ -676,7 +719,7 @@
       .exp-year { text-align: left; }
       .skills-layout { grid-template-columns: 1fr; }
       .about-layout, .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 1.5rem; }
       .footer-socials { flex-wrap: wrap; justify-content: center; }
       .divider { margin: 0 1.5rem; width: calc(100% - 3rem); }
       .status-card { padding: 1.5rem; }
@@ -866,7 +909,7 @@
       stroke-linecap: round;
       stroke-dasharray: 22 200;
       stroke-dashoffset: 0;
-      animation: revolve-cw 2.2s linear infinite;
+      animation: revolve-cw 5s linear infinite;
       filter: drop-shadow(0 0 3px var(--accent));
     }
     .contact-link-ring .ring-arc-2 {
@@ -876,7 +919,7 @@
       stroke-linecap: round;
       stroke-dasharray: 11 200;
       stroke-dashoffset: 0;
-      animation: revolve-ccw 3.1s linear infinite;
+      animation: revolve-ccw 7.5s linear infinite;
       opacity: 0.6;
     }
 
@@ -1123,9 +1166,9 @@
     <div class="about-layout">
       <div class="about-left-col">
         <div class="about-photo-wrap" id="about-photo-wrap"></div>
-        <div class="about-text reveal" id="about-text"></div>
+        <div class="about-stats reveal" id="about-stats"></div>
       </div>
-      <div class="about-stats reveal" id="about-stats"></div>
+      <div class="about-text reveal" id="about-text"></div>
     </div>
   </section>
 
@@ -1140,7 +1183,7 @@
   <section id="contact" aria-label="Contact Aaradhya">
     <div class="contact-layout">
       <div class="reveal" id="contact-intro"></div>
-      <div class="reveal">
+      <div class="reveal" id="contact-form-wrap">
         <form class="contact-form" id="contactForm">
           <div class="form-row">
             <div class="form-field">
@@ -1389,6 +1432,7 @@
       { label: "Email",     detail: "aaradhyadevtmr@gmail.com",          href: "mailto:aaradhyadevtmr@gmail.com" },
       { label: "LinkedIn",  detail: "aaradhya-dev-tamrakar",             href: "https://www.linkedin.com/in/aaradhya-dev-tamrakar" },
       { label: "GitHub",    detail: "AaradhyaDT",                        href: "https://github.com/AaradhyaDT" },
+      { label: "YouTube",   detail: "@aaradhyadevtamrakar",              href: "https://www.youtube.com/@aaradhyadevtamrakar" },
       { label: "Instagram", detail: "@aaradhya_dev_tamrakar",            href: "https://instagram.com/aaradhya_dev_tamrakar" },
       { label: "X / Twitter", detail: "@AaradhyaDT",                    href: "https://x.com/AaradhyaDT" },
     ],
@@ -1630,6 +1674,7 @@
     Email:      `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
     LinkedIn:   `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`,
     GitHub:     `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>`,
+    YouTube:    `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>`,
     Instagram:  `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
     'X / Twitter': `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg>`,
   };
@@ -1755,6 +1800,38 @@
     });
   })();
 
+  // ── Keyboard section jump (0=top, 1-7=sections) ─────────────
+  (function() {
+    const sectionMap = {
+      '0': '#hero',
+      '1': '#projects',
+      '2': '#apps',
+      '3': '#experience',
+      '4': '#skills',
+      '5': '#achievements',
+      '6': '#about',
+      '7': '#contact',
+    };
+    document.addEventListener('keydown', (e) => {
+      // Don't fire when typing in a form field
+      const tag = document.activeElement.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+      const target = sectionMap[e.key];
+      if (!target) return;
+      const el = document.querySelector(target);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Brief flash indicator
+        const flash = document.createElement('div');
+        flash.textContent = e.key === '0' ? '↑ Top' : `${e.key} → ${target.replace('#','').charAt(0).toUpperCase() + target.replace('#','').slice(1)}`;
+        flash.style.cssText = `position:fixed;bottom:5.5rem;left:50%;transform:translateX(-50%) translateY(10px);background:var(--bg2);border:1px solid var(--accent);color:var(--accent);font-family:var(--mono);font-size:0.62rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.4rem 1rem;border-radius:2px;z-index:9999;opacity:0;transition:opacity 0.2s ease, transform 0.2s ease;pointer-events:none;`;
+        document.body.appendChild(flash);
+        requestAnimationFrame(() => { flash.style.opacity = '1'; flash.style.transform = 'translateX(-50%) translateY(0)'; });
+        setTimeout(() => { flash.style.opacity = '0'; flash.style.transform = 'translateX(-50%) translateY(-6px)'; setTimeout(() => flash.remove(), 300); }, 1400);
+      }
+    });
+  })();
+
   // ── Signal Wave Background ─────────────────────────────────
   // Slow, continuous sine-wave signal traces — ECI engineering aesthetic
   class SignalWaveBackground {
@@ -1793,10 +1870,10 @@
       this.t += 1;
 
       const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
-      const rgb1   = isDark ? '212,168,90'  : '138,88,0';
-      const rgb2   = isDark ? '109,191,170' : '15,90,71';
-      const alpha1 = isDark ? 0.22 : 0.16;
-      const alpha2 = isDark ? 0.18 : 0.12;
+      const rgb1   = isDark ? '212,168,90'  : '180,100,0';
+      const rgb2   = isDark ? '109,191,170' : '0,130,100';
+      const alpha1 = isDark ? 0.22 : 0.28;
+      const alpha2 = isDark ? 0.18 : 0.22;
 
       for (const w of this.waveDefs) {
         const baseY = w.y * H;
@@ -1815,7 +1892,7 @@
         grad.addColorStop(0.94, `rgba(${rgb},${alphaP})`);
         grad.addColorStop(1,    `rgba(${rgb},0)`);
         ctx.strokeStyle = grad;
-        ctx.lineWidth   = 0.8;
+        ctx.lineWidth   = isDark ? 0.8 : 1.2;
         ctx.stroke();
 
         // Travelling bright node riding the wave
