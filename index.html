@@ -613,7 +613,7 @@
       margin: 0 0 0;
       flex-shrink: 0;
     }
-    .about-photo-wrap::before { content: ''; position: absolute; top: 10px; left: 10px; right: -10px; bottom: -10px; border: 1px solid var(--accent); border-radius: 2px; opacity: 0.3; transition: opacity 0.4s; }
+    .about-photo-wrap::before { content: ''; position: absolute; inset: -8px; border: 1px solid var(--accent); border-radius: 4px; opacity: 0.3; transition: opacity 0.4s; }
     .about-photo-wrap:hover::before { opacity: 0; }
 
     /* Revolving ring SVG overlay */
@@ -680,7 +680,7 @@
     .about-photo:hover { filter: grayscale(0%); }
     .about-photo-placeholder { width: 100%; aspect-ratio: 3/4; background: var(--bg2); border: 1px dashed var(--accent-a35); border-radius: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--muted); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; }
     .about-photo-placeholder svg { width: 28px; height: 28px; opacity: 0.4; }
-    .about-left-col { display: flex; flex-direction: column; gap: 0; align-items: flex-start; text-align: left; }
+    .about-left-col { display: flex; flex-direction: column; gap: 0; align-items: center; text-align: left; }
 
     @media (max-width: 900px) {
       .about-photo-wrap { width: 100%; max-width: 260px; }
