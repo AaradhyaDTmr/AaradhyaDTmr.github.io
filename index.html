@@ -16,7 +16,7 @@
   <meta property="og:url" content="https://aaradhyadtmr.github.io/" />
   <meta property="og:title" content="Aaradhya Dev Tamrakar — Electronics Engineer &amp; AI/ML Developer" />
   <meta property="og:description" content="BEI IV/I at KEC, IOE · Fuse AI Fellow · IEEE KEC Vice Chair · Building intelligent systems at the intersection of firmware, robotics, and machine learning." />
-  <meta property="og:image" content="https://aaradhyadtmr.github.io/photo.jpg" />
+  <meta property="og:image" content="https://aaradhyadtmr.github.io/photo.png" />
   <meta property="og:image:width" content="400" />
   <meta property="og:image:height" content="500" />
   <meta property="og:locale" content="en_US" />
@@ -28,7 +28,7 @@
   <meta name="twitter:creator" content="@AaradhyaDT" />
   <meta name="twitter:title" content="Aaradhya Dev Tamrakar — Electronics Engineer &amp; AI/ML Developer" />
   <meta name="twitter:description" content="BEI IV/I at KEC, IOE · Fuse AI Fellow · IEEE KEC Vice Chair · Robotics, embedded systems, machine learning." />
-  <meta name="twitter:image" content="https://aaradhyadtmr.github.io/photo.jpg" />
+  <meta name="twitter:image" content="https://aaradhyadtmr.github.io/photo.png" />
 
   <!-- JSON-LD structured data -->
   <script type="application/ld+json">
@@ -37,7 +37,7 @@
     "@type": "Person",
     "name": "Aaradhya Dev Tamrakar",
     "url": "https://aaradhyadtmr.github.io/",
-    "image": "https://aaradhyadtmr.github.io/photo.jpg",
+    "image": "https://aaradhyadtmr.github.io/photo.png",
     "jobTitle": "Electronics, Communication and Information Engineering Student",
     "description": "BEI IV/I student at Kathmandu Engineering College, IOE, Tribhuvan University. Fuse AI Fellow (Fusemachines 2026), NSSR DataCamp Fellow, IEEE KEC Vice Chair.",
     "email": "aaradhyadevtmr@gmail.com",
@@ -135,7 +135,7 @@
     body, body * { transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease; }
 
     html { scroll-behavior: smooth; background: var(--bg); }
-    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-weight: 400; overflow-x: hidden; min-height: 100vh; }
+    body { background: transparent; color: var(--text); font-family: var(--sans); font-weight: 400; overflow-x: hidden; min-height: 100vh; }
     
     @media (pointer: fine) {
       body { cursor: none; }
@@ -186,7 +186,7 @@
       font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; color: var(--accent); text-decoration: none;
       border: 1px solid var(--accent-a80); padding: 0.5rem 1.2rem; border-radius: 2px;
       position: relative; overflow: hidden;
-      transition: background 0.25s, color 0.25s, letter-spacing 0.3s, box-shadow 0.3s;
+      transition: background 0.25s, color 0.25s, box-shadow 0.3s;
     }
     .nav-cta::before {
       content: ''; position: absolute; inset: 0;
@@ -194,7 +194,7 @@
       transform: translateX(-100%);
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .nav-cta:hover { background: var(--accent); color: var(--bg); letter-spacing: 0.13em; box-shadow: 0 0 14px var(--accent-a35); }
+    .nav-cta:hover { background: var(--accent); color: var(--bg); box-shadow: 0 0 14px var(--accent-a35); }
     .nav-cta:hover::before { transform: translateX(100%); }
     .nav-right { display: flex; align-items: center; gap: 1rem; justify-content: flex-end; }
 
@@ -213,7 +213,7 @@
       background: transparent; color: var(--accent); font-family: var(--mono); font-size: 0.68rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.75rem 1.6rem; border-radius: 2px; text-decoration: none; border: 1px solid var(--accent);
       display: inline-flex; align-items: center; gap: 0.5rem;
       position: relative; overflow: hidden;
-      transition: color 0.25s, letter-spacing 0.3s, box-shadow 0.3s, background 0.25s;
+      transition: color 0.25s, box-shadow 0.3s, background 0.25s;
     }
     .btn-primary::before {
       content: ''; position: absolute; inset: 0;
@@ -224,7 +224,6 @@
     .btn-primary::after { content: '↗'; font-size: 0.8em; transition: transform 0.25s; }
     .btn-primary:hover {
       background: var(--accent); color: var(--bg);
-      letter-spacing: 0.16em;
       box-shadow: 0 0 18px var(--accent-a35);
     }
     .btn-primary:hover::before { transform: translateX(100%); }
@@ -234,14 +233,14 @@
       display: inline-flex; align-items: center; gap: 0.45rem;
       padding: 0.75rem 1rem; border: 1px solid var(--muted); border-radius: 2px;
       position: relative; overflow: hidden;
-      transition: color 0.25s, border-color 0.25s, letter-spacing 0.3s;
+      transition: color 0.25s, border-color 0.25s;
     }
     .btn-ghost::before {
       content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 0;
       background: var(--accent-a07);
       transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .btn-ghost:hover { color: var(--heading); border-color: var(--text); letter-spacing: 0.15em; }
+    .btn-ghost:hover { color: var(--heading); border-color: var(--text); }
     .btn-ghost:hover::before { height: 100%; }
 
     /* Magnetic & Glass Utility Classes */
@@ -273,8 +272,13 @@
     .status-card { border: 1px solid var(--line); background: var(--bg2); border-radius: 4px; padding: 2rem; position: relative; }
     .status-card::before { content: ''; position: absolute; top: -1px; left: 2rem; right: 2rem; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), transparent); }
     .status-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
-    .status-dot { width: 6px; height: 6px; background: var(--accent2); border-radius: 50%; box-shadow: 0 0 6px var(--accent2); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+    .status-dot { position: relative; width: 8px; height: 8px; flex-shrink: 0; }
+    .status-dot::before, .status-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; }
+    .status-dot::before { background: var(--accent2); box-shadow: 0 0 5px var(--accent2); animation: dot-breathe 2.4s ease-in-out infinite; }
+    .status-dot::after { border: 1.5px solid var(--accent2); animation: dot-ripple 2.4s ease-out infinite; }
+    .status-dot-ring2 { position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--accent2); animation: dot-ripple 2.4s ease-out 0.9s infinite; }
+    @keyframes dot-breathe { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.2); opacity: 0.85; } }
+    @keyframes dot-ripple { 0% { transform: scale(1); opacity: 0.65; } 100% { transform: scale(3.8); opacity: 0; } }
     .status-items { display: flex; flex-direction: column; gap: 1rem; }
     .status-item { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--line); }
     .status-item:last-child { border-bottom: none; padding-bottom: 0; }
@@ -426,8 +430,77 @@
 
     /* Profile picture */
     .about-photo-wrap { position: relative; flex-shrink: 0; width: 220px; height: 280px; }
-    .about-photo-wrap::before { content: ''; position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 1px solid var(--accent); border-radius: 2px; opacity: 0.35; }
-    .about-photo { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; display: block; filter: grayscale(20%); transition: filter 0.4s; }
+    .about-photo-wrap::before { content: ''; position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 1px solid var(--accent); border-radius: 2px; opacity: 0.35; transition: opacity 0.4s; }
+    .about-photo-wrap:hover::before { opacity: 0; }
+
+    /* Revolving ring SVG overlay */
+    .about-photo-ring {
+      position: absolute;
+      inset: -14px;
+      border-radius: 4px;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.35s ease;
+      z-index: 2;
+    }
+    .about-photo-ring svg {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+    .about-photo-ring .ring-track {
+      fill: none;
+      stroke: var(--line);
+      stroke-width: 1;
+    }
+    .about-photo-ring .ring-arc {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-dasharray: 60 500;
+      stroke-dashoffset: 0;
+      animation: revolve-cw 2.2s linear infinite;
+      filter: drop-shadow(0 0 4px var(--accent));
+    }
+    .about-photo-ring .ring-arc-2 {
+      fill: none;
+      stroke: var(--accent2);
+      stroke-width: 1;
+      stroke-linecap: round;
+      stroke-dasharray: 30 500;
+      stroke-dashoffset: 0;
+      animation: revolve-ccw 3.1s linear infinite;
+      opacity: 0.6;
+    }
+    .about-photo-ring .ring-dot {
+      fill: var(--accent);
+      filter: drop-shadow(0 0 3px var(--accent));
+      animation: revolve-dot-cw 2.2s linear infinite;
+    }
+    .about-photo-ring .ring-dot-2 {
+      fill: var(--accent2);
+      animation: revolve-dot-ccw 3.1s linear infinite;
+      opacity: 0.7;
+    }
+    @keyframes revolve-cw {
+      from { stroke-dashoffset: 0; }
+      to   { stroke-dashoffset: -560; }
+    }
+    @keyframes revolve-ccw {
+      from { stroke-dashoffset: 0; }
+      to   { stroke-dashoffset: 560; }
+    }
+    @keyframes revolve-dot-cw {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    @keyframes revolve-dot-ccw {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(-360deg); }
+    }
+    .about-photo-wrap:hover .about-photo-ring { opacity: 1; }
+    .about-photo { width: 100%; height: 100%; object-fit: cover; border-radius: 2px; display: block; filter: grayscale(20%); transition: filter 0.4s; position: relative; z-index: 1; }
     .about-photo:hover { filter: grayscale(0%); }
     .about-photo-placeholder { width: 100%; height: 100%; background: var(--bg2); border: 1px dashed var(--accent-a35); border-radius: 2px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; color: var(--muted); font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; }
     .about-photo-placeholder svg { width: 28px; height: 28px; opacity: 0.4; }
@@ -460,7 +533,7 @@
       background: var(--accent); color: var(--bg); border: none; padding: 0.85rem 2rem; border-radius: 2px;
       cursor: pointer; align-self: flex-start;
       position: relative; overflow: hidden;
-      transition: letter-spacing 0.3s, box-shadow 0.3s, opacity 0.2s;
+      transition: box-shadow 0.3s, opacity 0.2s;
     }
     .form-submit::before {
       content: ''; position: absolute; inset: 0;
@@ -468,7 +541,7 @@
       transform: translateX(-100%);
       transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .form-submit:hover { letter-spacing: 0.14em; box-shadow: 0 0 22px var(--accent-a40); }
+    .form-submit:hover { box-shadow: 0 0 22px var(--accent-a40); }
     .form-submit:hover::before { transform: translateX(100%); }
     .form-submit:disabled { opacity: 0.5; cursor: not-allowed; box-shadow: none; }
     .form-status { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--accent2); margin-top: 0.25rem; min-height: 1rem; }
@@ -635,7 +708,7 @@
     </div>
     <div class="hero-right">
       <div class="status-card">
-        <div class="status-label"><span class="status-dot"></span> Currently Active</div>
+        <div class="status-label"><span class="status-dot"><span class="status-dot-ring2"></span></span> Currently Active</div>
         <div class="status-items" id="status-items"></div>
       </div>
     </div>
@@ -765,59 +838,71 @@
       "Fuse AI Fellow · NSSR DataCamp Fellow · IEEE KEC Vice Chair · Robotics enthusiast.",
 
     // ── Profile photo ─────────────────────────────────────────
-    // Set to your image URL or relative path, e.g. "photo.jpg"
+    // Set to your image URL or relative path, e.g. "photo.png"
     // Leave null to show placeholder
-    profilePhoto: "photo.jpg",
+    profilePhoto: "photo.png",
 
     // ── Status card (hero) ───────────────────────────────────
     status: [
-      { label: "Focus",      value: "Fuse AI Fellowship — Week 3" },
+      { label: "Focus",      value: "Fuse AI Fellowship — Wks 1–5 complete · Wk 6+ ongoing" },
       { label: "Role",       value: "IEEE KEC Vice Chair · EPC Event Mgr" },
       { label: "Fellowship", value: "Fuse AI Fellow · NSSR DataCamp (C2) — SQL Associate next" },
-      { label: "Stack",      value: "Python · Kotlin · FastAPI · Docker · PostgreSQL · SQL" },
-      { label: "Interests",  value: "Embedded Systems · AI/ML · Edge AI · Major Project" },
+      { label: "Stack",      value: "Python · Kotlin · FastAPI · Docker · PostgreSQL · XGBoost · SHAP" },
+      { label: "Interests",  value: "Embedded Systems · AI/ML · Edge AI · IT4D 2026 Paper" },
     ],
 
     // ── Projects ─────────────────────────────────────────────
     projects: [
       {
         title: "Gesture-Controlled Self-Balancing Robot",
-        desc:  "A two-wheeled inverted pendulum robot controlled via real-time hand gesture recognition. Dual-hand MediaPipe control over HC-05 Bluetooth, PID firmware with watchdog timer and integrator bleed, MATLAB simulation → DRV8825/CNC Shield deployment. Examiner described it as major project level.",
+        desc:  "Two-wheeled inverted pendulum robot controlled via real-time hand gesture recognition. Dual-hand MediaPipe control over HC-05 Bluetooth, PID firmware V6.9.1 (watchdog timer, atomic writes, differential ramp, integrator bleed), MATLAB simulation → DRV8825/CNC Shield deployment. Examiner described it as major project level — rated 9.4/10.",
         tags:  ["Arduino", "HC-05", "MPU-6050", "NEMA-17", "MediaPipe", "PID", "MATLAB"],
         link:  "https://github.com/AaradhyaDT/Gesture-Controlled-Self-Balancing-Robot",
       },
       {
+        title: "Text-to-SQL Agentic Pipeline",
+        desc:  "Production-grade five-stage agentic Text-to-SQL system over a classicmodels PostgreSQL database. Modular FastAPI state machine: Planner → Generator → Validator → Executor → Summarizer with up to 3 self-correction retries. Achieved 100% execution success rate and 100% result accuracy across a 50-question benchmark — zero retries required. Streamlit chat UI, Docker/Compose containerisation, rule-based SQL safety validation (blocks DML/DDL), structured JSON audit logging. Basis for IT4D 2026 concept paper (submission Jun 1).",
+        tags:  ["Python", "FastAPI", "Streamlit", "GPT-4o-mini", "PostgreSQL", "Docker", "Prompt Chaining"],
+        link:  "https://github.com/AaradhyaDT/fuseAiF_wk3_text2sql",
+      },
+      {
+        title: "Telco Churn Tree-Based Ensemble Pipeline",
+        desc:  "End-to-end classification pipeline on Telco Customer Churn (7,043 rows, ~27% positive rate). ImbPipeline with SMOTE restricted to training folds only — zero preprocessing leakage. Random Forest + XGBoost with GridSearch/Bayesian tuning, Stratified K-Fold CV. SHAP global summary and local waterfall/force plots for explainability. Full Joblib pipeline serialisation. Secondary regression task: tenure prediction with Decision Tree vs XGBoost Regressor learning curves. Model Card with real metric values.",
+        tags:  ["Python", "XGBoost", "Random Forest", "SHAP", "ImbPipeline", "SMOTE", "Joblib", "scikit-learn"],
+        link:  "https://github.com/AaradhyaDT/fuseAiF_wk5_telco_churn_ensembles",
+      },
+      {
+        title: "Telco Churn & CLV ML Pipeline",
+        desc:  "Classification and regression pipeline for churn prediction and Customer Lifetime Value modeling. Logistic Regression / Ridge / SGD classifiers benchmarked on Stratified 70/15/15 split. Custom threshold at 0.385 isolates top-200 high-risk budget segment. Stratified 5-fold CV: ROC-AUC 0.841 ± 0.005. Ridge Regression best for CLV (mean $1,304.70); Lasso L1 regularisation paths plotted. Papermill automation with full HTML report export.",
+        tags:  ["Python", "scikit-learn", "Logistic Regression", "Ridge", "Lasso", "Pandas", "Papermill"],
+        link:  "https://github.com/AaradhyaDT/FUSE_AIF_2026_M1",
+      },
+      {
+        title: "Alpha Android Super-App",
+        desc:  "Modular personal super-app (SDK 36, Kotlin/Jetpack Compose, Material3, custom Astronomus font). SBR Remote turns the phone into a gesture controller over Bluetooth. Budget Tracker parses eSewa Gmail transactions with Apache POI export and DataStore persistence. Multi-mode calculator covers STD/PROG/LOGIC modes including base conversion and logic gates. Primary shipping target — Play Store release in progress.",
+        tags:  ["Kotlin", "Jetpack Compose", "Material3", "CameraX", "MediaPipe", "Bluetooth SPP", "DataStore", "Apache POI"],
+        link:  "https://github.com/AaradhyaDT/Alpha-SuperApp",
+        status: "In Progress",
+        progress: [
+          { label: "Build",   done: true },
+          { label: "Play Store", done: false },
+        ],
+      },
+      {
         title: "Edge AI Stability Detection System",
-        desc:  "End-to-end ML pipeline for Fusemachines AI Fellowship: 10,000-sample synthetic IMU dataset generation, Random Forest classifier achieving 99.8% test accuracy, FastAPI REST deployment, and Joblib export for robotics integration.",
+        desc:  "ML system predicting platform stability from simulated IMU sensor data (tilt_x, tilt_y, angular velocity). 10,000-sample synthetic dataset; Random Forest classifier — 99.8% test accuracy. REST API via FastAPI for real-time predictions; Joblib export for robotics integration with GCSBR.",
         tags:  ["Python", "scikit-learn", "RandomForest", "FastAPI", "Joblib", "IMU", "Edge AI"],
         link:  "https://github.com/AaradhyaDT/stability-ai-system",
       },
       {
-        title: "Edge AI Integration Platform — Final Year Project",
-        desc:  "Discipline-agnostic edge AI framework for real-time sensing and on-device inference on resource-constrained IoT. ESP32 + MPU6050 node runs TFLite HAR models (Walking / Running / Sitting / Cycling / Fall Detection) entirely on-chip. A sensor-agnostic BLE/WiFi protocol streams results to a generic Android renderer built in Kotlin/Jetpack Compose — no app rebuild needed to swap models. FastAPI backend handles OTA model delivery, session logging, and cloud sync. Core contribution: the cross-layer integration architecture, not the model. Targeting NepCom 2026 and IEEE Sensors Journal.",
-        tags:  ["ESP32", "TFLite", "MPU6050", "BLE", "OTA", "Kotlin", "Jetpack Compose", "FastAPI", "Edge AI"],
-        status: "In Progress",
-        progress: [
-          { label: "Idea", done: true },
-          { label: "Proposal", done: false },
-        ],
-        link:  null,
-      },
-      {
-        title: "Alpha Android Super-App",
-        desc:  "Modular personal super-app (Kotlin/Jetpack Compose, Material3). SBR remote turns your phone into a gesture controller over Bluetooth. Budget Tracker parses eSewa transactions with DataStore-backed local persistence. Multi-mode calculator handles base conversion and logic gates. Settings module via DataStore Preferences.",
-        tags:  ["Kotlin", "Jetpack Compose", "CameraX", "MediaPipe", "Bluetooth SPP", "DataStore", "Apache POI"],
-        link:  "https://github.com/AaradhyaDT/Alpha-SuperApp",
-      },
-      {
         title: "SysOptimizer — Windows Optimization Tool",
-        desc:  "Standalone Windows system optimization tool packaged as a .exe. Features animated ring gauges, sparklines, per-core CPU reporting, Power Plan switcher, RAM flush, Background Bloat panel (14 services/tasks), and Startup Scanner — all running silently with zero UI interruption via CREATE_NO_WINDOW.",
+        desc:  "Standalone Windows optimization tool packaged as a .exe via PyInstaller. Animated ring gauges, sparklines, per-core CPU reporting, Power Plan switcher, RAM flush, Background Bloat panel (14 services/tasks), and Startup Scanner — all running silently via CREATE_NO_WINDOW.",
         tags:  ["Python", "CustomTkinter", "PyInstaller", "WMI", "PowerShell"],
         link:  null,
       },
       {
         title: "Custom Processor FSM Design",
-        desc:  "VHDL implementation of a custom processor datapath and FSM for GCD and exponentiation operations. Simulated and verified in Vivado 2023.2 as part of Embedded Systems coursework. Demonstrates digital design and hardware description language competency.",
+        desc:  "VHDL implementation of a custom processor datapath and FSM supporting GCD and exponentiation operations. Simulated and verified in Vivado 2023.2 as Embedded Systems coursework.",
         tags:  ["VHDL", "Vivado", "FSM", "Datapath", "FPGA"],
         link:  null,
       },
@@ -828,8 +913,8 @@
       {
         icon:  "⚡",
         title: "Alpha — Android Super-App",
-        desc:  "A personal productivity super-app designed for daily utility. Features a gesture-controlled Bluetooth remote, an automated eSewa transaction parser, and a specialized scientific calculator. Built as a modular ecosystem for Android with Material3 components and local data persistence via DataStore.",
-        tags:  ["Kotlin", "Jetpack Compose", "Material3", "MediaPipe", "Bluetooth", "CameraX", "DataStore"],
+        desc:  "Modular personal productivity super-app (SDK 36, Kotlin/Jetpack Compose, Material3, custom Astronomus font). Modules: SBR gesture remote (MediaPipe + CameraX + HC-05 Bluetooth), Budget Tracker (eSewa Gmail parser + Apache POI export + DataStore persistence), multi-mode calculator (STD/PROG/LOGIC — base conversion and logic gates), and full Settings module. Primary shipping target — Play Store release in progress.",
+        tags:  ["Kotlin", "Jetpack Compose", "Material3", "MediaPipe", "Bluetooth", "CameraX", "DataStore", "Apache POI"],
         links: [
           { label: "GitHub", href: "https://github.com/AaradhyaDT/Alpha-SuperApp", type: "secondary" },
         ],
@@ -841,7 +926,7 @@
       {
         org:   "Fusemachines",
         title: "Fuse AI Fellow",
-        desc:  "Selected through a competitive entrance exam. Week 1: Heart attack risk prediction pipeline — data wrangling, EDA, SQL (CTEs, Window Functions, correlated subqueries). Week 2 (submitted May 10): Docker + PostgreSQL containerization, FastAPI 4-layer architecture (logger → database → models → schemas → crud → router → main), asyncio concurrency with asyncio.gather() + run_in_executor(). GitHub: AaradhyaDT/fuseAiF_wk2_customer_api_app.",
+        desc:  "Selected through competitive entrance exam (linear algebra, calculus, probability, Python, ML). Wk 1: Heart attack risk prediction — EDA, SQL CTEs/window functions. Wk 2: Containerised FastAPI + PostgreSQL REST API (4-layer architecture, asyncio concurrency). Wk 3: Five-stage Text-to-SQL agentic pipeline — 100% execution success and 100% accuracy on 50-question benchmark; basis for IT4D 2026 concept paper. Wk 4: Telco Churn & CLV pipeline — ROC-AUC 0.841 ± 0.005, Papermill automation, HTML report. Wk 5: Tree-based ensemble pipeline — XGBoost + Random Forest, ImbPipeline/SMOTE (zero leakage), SHAP explainability, Joblib serialisation. Wk 6+ ongoing.",
         year:  "2026 — Present",
       },
       {
@@ -853,7 +938,7 @@
       {
         org:   "NSSR — Nepalese Society of Student Researchers",
         title: "DataCamp Fellow — Cohort 2",
-        desc:  "Selected April 28, 2026 via competitive entrance exam. Sponsored DataCamp Premium license. Certification pathway locked (May 12): SQL Associate + Python Data Associate (Phase 1), Data Engineer + Data Scientist + AI (Phase 2), AI Engineer for Developers + AWS Cloud Practitioner (Phase 3). SQL track active: CASE WHEN, subqueries, window functions complete.",
+        desc:  "Competitively selected (April 2026) for a sponsored DataCamp Premium license. Phase 1 (Applied AI) complete: architected 6 GenAI projects spanning multi-variable prompt planning, constraint-driven recommenders, automated text analytics, and programmatic data-cleaning workflows. Phase 2 active: SQL Associate + Python Data Associate pathways (Data Manipulation in PostgreSQL, Pandas, Statistical Thinking, scikit-learn). Data Engineer + Data Scientist + AI Engineer tracks to follow post-fellowship.",
         year:  "2026 — Present",
       },
       {
@@ -916,10 +1001,12 @@
       {
         title: "AI & Deployment",
         skills: [
-          { name: "scikit-learn",       level: 2 },
-          { name: "FastAPI",            level: 2 },
+          { name: "scikit-learn",       level: 3 },
+          { name: "FastAPI / Docker",   level: 3 },
           { name: "NumPy / Pandas",     level: 3 },
-          { name: "Ollama / Local LLM", level: 1 },
+          { name: "XGBoost / SHAP",     level: 2 },
+          { name: "Ollama / Local LLM", level: 2 },
+          { name: "Prompt Chaining",    level: 2 },
         ],
       },
     ],
@@ -927,7 +1014,7 @@
     // ── About ────────────────────────────────────────────────
     aboutParagraphs: [
       "I'm a fourth-year <strong>Electronics, Communication &amp; Information Engineering</strong> student at Kathmandu Engineering College, IOE, Tribhuvan University — working at the frontier of embedded systems, robotics, and applied machine learning.",
-      "My work bridges firmware and intelligence: from tuning PID loops on stepper-driven robots to deploying ML inference pipelines via FastAPI. Currently active as a <strong>Fuse AI Fellow</strong> (Fusemachines 2026) and <strong>NSSR DataCamp Fellow (Cohort 2)</strong>, building production-ready AI systems with real-world datasets.",
+      "My work bridges firmware and intelligence: from tuning PID loops on stepper-driven robots to deploying production ML pipelines via FastAPI and Docker. Currently a <strong>Fuse AI Fellow</strong> (Fusemachines 2026, Weeks 1–5 complete) building agentic Text-to-SQL systems, tree-based ensemble pipelines with SHAP explainability, and containerised REST APIs — with an IT4D 2026 concept paper in submission. Also an <strong>NSSR DataCamp Fellow (Cohort 2)</strong>, advancing through SQL Associate and Python Data Associate certification tracks.",
       "Beyond the bench, I serve as <strong>the Vice Chair of the IEEE KEC Student Branch</strong> and Event Manager at the Electronics Project Club, where I work to build a stronger technical community for engineers in Nepal.",
     ],
     aboutStats: [
@@ -950,6 +1037,12 @@
 
     // ── Achievements ─────────────────────────────────────────
     achievements: [
+      {
+        title: "IEEE Conference Leadership Workshop 2026",
+        org:   "IEEE Nepal Section",
+        date:  "2026",
+        desc:  "Workshop covering event management, leadership, and conference organisation skills for IEEE student members.",
+      },
       {
         title: "IEEEXtreme 19.0",
         org:   "IEEE",
@@ -1128,14 +1221,30 @@
 
     // Profile photo
     const photoWrap = document.getElementById('about-photo-wrap');
+    // Build revolving ring SVG — computed for the actual wrap size (220×280 + 14px inset on each side = 248×308)
+    const rw = 248, rh = 308;
+    // Perimeter of the rounded-rect path (approx, r=4)
+    const r = 4;
+    const perim = 2*(rw-2*r) + 2*(rh-2*r) + 2*Math.PI*r;
+    const cx1 = rw/2, cy1 = rh/2;
+    const ringDotR = 3;
+    // SVG path for rounded rect: start top-left after corner
+    const rectPath = `M${r},0 H${rw-r} Q${rw},0 ${rw},${r} V${rh-r} Q${rw},${rh} ${rw-r},${rh} H${r} Q0,${rh} 0,${rh-r} V${r} Q0,0 ${r},0 Z`;
+    const ringHtml = `<div class="about-photo-ring">
+      <svg viewBox="0 0 ${rw} ${rh}" xmlns="http://www.w3.org/2000/svg">
+        <path class="ring-track" d="${rectPath}"/>
+        <path class="ring-arc" d="${rectPath}" pathLength="${perim}" stroke-dasharray="${Math.round(perim*0.18)} ${perim}" />
+        <path class="ring-arc-2" d="${rectPath}" pathLength="${perim}" stroke-dasharray="${Math.round(perim*0.09)} ${perim}" stroke-dashoffset="${Math.round(perim*0.5)}" />
+      </svg>
+    </div>`;
     if (DATA.profilePhoto) {
-      photoWrap.innerHTML = `<img src="${DATA.profilePhoto}" alt="Aaradhya Dev Tamrakar" class="about-photo" loading="lazy" width="220" height="280" />`;
+      photoWrap.innerHTML = `<img src="${DATA.profilePhoto}" alt="Aaradhya Dev Tamrakar" class="about-photo" loading="lazy" width="280" height="280" />${ringHtml}`;
     } else {
       photoWrap.innerHTML = `<div class="about-photo-placeholder">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
         <span>Add photo</span>
         <span style="opacity:0.5;font-size:0.55rem">Set profilePhoto in DATA</span>
-      </div>`;
+      </div>${ringHtml}`;
     }
 
     const stats = document.getElementById('about-stats');
@@ -1237,76 +1346,136 @@
     });
   })();
 
-  // ── Circuit / Neural Background ────────────────────────────
-  class CircuitBackground {
+  // ── Isometric Hex Background ───────────────────────────────
+  class IsometricHexBackground {
     constructor() {
       this.canvas = document.getElementById('bg-canvas');
-      this.ctx = this.canvas.getContext('2d');
-      this.points = [];
-      this.numPoints = 60;
-      this.mouse = { x: -100, y: -100 };
+      this.ctx    = this.canvas.getContext('2d');
+      this.mouse  = { x: -9999, y: -9999 };
+      this.t      = 0;
+      this.cells  = [];
       this.init();
       this.animate();
       window.addEventListener('resize', () => this.init());
-      window.addEventListener('mousemove', (e) => {
-        this.mouse.x = e.clientX;
-        this.mouse.y = e.clientY;
-      });
+      window.addEventListener('mousemove', e => { this.mouse.x = e.clientX; this.mouse.y = e.clientY; });
     }
+
     init() {
-      this.canvas.width = window.innerWidth;
-      this.canvas.height = window.innerHeight;
-      this.points = [];
-      for (let i = 0; i < this.numPoints; i++) {
-        this.points.push({
-          x: Math.random() * this.canvas.width,
-          y: Math.random() * this.canvas.height,
-          vx: (Math.random() - 0.5) * 0.4,
-          vy: (Math.random() - 0.5) * 0.4,
-          size: Math.random() * 2 + 1
-        });
+      const W = this.canvas.width  = window.innerWidth;
+      const H = this.canvas.height = window.innerHeight;
+
+      // Hex size & isometric skew
+      // In iso projection a flat-top hex maps to a diamond.
+      // We use: isoX = (col + row/2) * xStep,  isoY = row * yStep * 0.5
+      // xStep = hex "width" in screen space, yStep = row vertical stride
+      const S    = 46;           // hex circumradius (screen units before iso)
+      const xStep = S * 1.732;   // √3 * S  (flat-top col spacing)
+      const yStep = S * 1.5;     // row spacing before iso squash
+      const isoSquash = 0.55;    // vertical squash for isometric look
+
+      const cols = Math.ceil(W / xStep) + 3;
+      const rows = Math.ceil(H / (yStep * isoSquash)) + 4;
+
+      this.cells = [];
+      this.S = S;
+      this.xStep = xStep;
+      this.yStep = yStep;
+      this.isoSquash = isoSquash;
+
+      for (let row = -2; row < rows; row++) {
+        for (let col = -2; col < cols; col++) {
+          // Isometric offset: odd rows shift right by half xStep
+          const sx = (col + (row % 2) * 0.5) * xStep;
+          const sy = row * yStep * isoSquash;
+          this.cells.push({
+            cx: sx, cy: sy,
+            col, row,
+            phase: Math.random() * Math.PI * 2   // per-cell shimmer offset
+          });
+        }
       }
     }
+
+    // Flat-top regular hex vertices, isometrically squashed
+    hexPath(cx, cy, r, squash, ctx) {
+      ctx.beginPath();
+      for (let i = 0; i < 6; i++) {
+        const a = (Math.PI / 3) * i;                // flat-top: 0° at top-right
+        const vx = cx + r * Math.cos(a);
+        const vy = cy + r * Math.sin(a) * squash;
+        i === 0 ? ctx.moveTo(vx, vy) : ctx.lineTo(vx, vy);
+      }
+      ctx.closePath();
+    }
+
+    // Isometric "top face" shading — draw three inner lines from center
+    isoLines(cx, cy, r, squash, alpha, accentRGB, ctx) {
+      // Three axes of a hex at 0°, 120°, 240° simulate iso cube edges
+      const angles = [Math.PI / 6, Math.PI / 2, 5 * Math.PI / 6]; // pointing up-right, up, up-left
+      ctx.strokeStyle = `rgba(${accentRGB}, ${alpha * 0.35})`;
+      ctx.lineWidth = 0.5;
+      angles.forEach(a => {
+        ctx.beginPath();
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(cx + r * Math.cos(a), cy + r * Math.sin(a) * squash);
+        ctx.stroke();
+      });
+    }
+
     animate() {
-      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-      const color = isDark ? '212, 168, 90' : '138, 88, 0'; // var(--accent) components
+      const W = this.canvas.width, H = this.canvas.height;
+      this.ctx.clearRect(0, 0, W, H);
+      this.t += 0.008;
 
-      this.points.forEach((p, i) => {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
+      const isDark    = document.documentElement.getAttribute('data-theme') === 'dark';
+      const accentRGB = isDark ? '212,168,90' : '138,88,0';
+      const baseAlpha = isDark ? 0.07 : 0.055;
+      const edgeAlpha = isDark ? 0.18 : 0.13;
 
-        // Draw point
-        this.ctx.beginPath();
-        this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        this.ctx.fillStyle = `rgba(${color}, 0.3)`;
+      const { S, xStep, yStep, isoSquash, mouse, t } = this;
+      const mouseR = 180;  // influence radius
+
+      this.cells.forEach(cell => {
+        const { cx, cy, phase } = cell;
+
+        // Distance from mouse for proximity glow
+        const dx   = cx - mouse.x;
+        const dy   = cy - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        const prox = Math.max(0, 1 - dist / mouseR);
+
+        // Slow per-cell wave shimmer
+        const shimmer = (Math.sin(t + phase) + 1) / 2;  // 0–1
+
+        const fillA  = baseAlpha + shimmer * 0.04 + prox * 0.12;
+        const strokeA = edgeAlpha + shimmer * 0.06 + prox * 0.25;
+
+        // Fill
+        this.hexPath(cx, cy, S - 1, isoSquash, this.ctx);
+        this.ctx.fillStyle   = `rgba(${accentRGB}, ${fillA})`;
         this.ctx.fill();
 
-        // Connect to others
-        for (let j = i + 1; j < this.points.length; j++) {
-          const p2 = this.points[j];
-          const dist = Math.sqrt((p.x - p2.x)**2 + (p.y - p2.y)**2);
-          if (dist < 150) {
-            this.ctx.beginPath();
-            this.ctx.moveTo(p.x, p.y);
-            this.ctx.lineTo(p2.x, p2.y);
-            this.ctx.strokeStyle = `rgba(${color}, ${0.1 * (1 - dist / 150)})`;
-            this.ctx.stroke();
-          }
-        }
+        // Edge
+        this.hexPath(cx, cy, S - 1, isoSquash, this.ctx);
+        this.ctx.strokeStyle = `rgba(${accentRGB}, ${strokeA})`;
+        this.ctx.lineWidth   = 0.6 + prox * 0.8;
+        this.ctx.stroke();
 
-        // Connect to mouse
-        const mDist = Math.sqrt((p.x - this.mouse.x)**2 + (p.y - this.mouse.y)**2);
-        if (mDist < 200) {
+        // Iso inner lines (gives 3D cube-top illusion)
+        this.isoLines(cx, cy, S - 2, isoSquash, strokeA, accentRGB, this.ctx);
+
+        // Vertex dots at each corner for that graph-paper node feel
+        for (let i = 0; i < 6; i++) {
+          const a  = (Math.PI / 3) * i;
+          const vx = cx + (S - 1) * Math.cos(a);
+          const vy = cy + (S - 1) * Math.sin(a) * isoSquash;
           this.ctx.beginPath();
-          this.ctx.moveTo(p.x, p.y);
-          this.ctx.lineTo(this.mouse.x, this.mouse.y);
-          this.ctx.strokeStyle = `rgba(${color}, ${0.2 * (1 - mDist / 200)})`;
-          this.ctx.stroke();
+          this.ctx.arc(vx, vy, 1 + prox * 1.2, 0, Math.PI * 2);
+          this.ctx.fillStyle = `rgba(${accentRGB}, ${strokeA * 0.9})`;
+          this.ctx.fill();
         }
       });
+
       requestAnimationFrame(() => this.animate());
     }
   }
@@ -1317,7 +1486,7 @@
   }
 
   // ── Init background + magnetic after definitions ────────────
-  new CircuitBackground();
+  new IsometricHexBackground();
   initMagnetic();
 
   // ── Cursor (mouse only) ─────────────────────────────────────
