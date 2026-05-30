@@ -172,7 +172,7 @@
       height: 100%;
       z-index: -1;
       pointer-events: none;
-      opacity: 0.4;
+      opacity: 0.55;
     }
 
     /* Cursor */
@@ -306,63 +306,59 @@
     .section-num { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
     .section-title { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; color: var(--heading); line-height: 1.1; }
     .section-title em { font-style: italic; color: var(--accent); }
-    /* Animated section dividers */
+    /* Animated section dividers — revolving arc style (matches photo ring) */
     .divider {
       position: relative;
-      width: calc(100% - 6rem);
+      flex: 1;
+      width: auto;
       height: 1px;
-      margin: 0 3rem;
-      background: linear-gradient(90deg, transparent, var(--line) 20%, var(--line) 80%, transparent);
+      background: var(--line);
       overflow: visible;
     }
-    /* Travelling light beam */
+    /* Revolving arc — CW primary */
     .divider::before {
       content: '';
       position: absolute;
       top: -1px;
-      left: -10%;
-      width: 15%;
+      left: 0;
+      right: 0;
       height: 3px;
+      background: transparent;
+      border-top: 1.5px solid var(--accent);
+      filter: drop-shadow(0 0 3px var(--accent));
       border-radius: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      filter: blur(1px);
-      animation: div-scan 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      opacity: 0.75;
+      clip-path: inset(0 85% 0 0);
+      animation: arc-sweep-cw 5s linear infinite;
+      opacity: 0.65;
     }
-    /* Second beam — offset timing, accent2 colour */
+    /* Revolving arc — CCW secondary */
     .divider::after {
       content: '';
       position: absolute;
       top: -1px;
-      left: -10%;
-      width: 8%;
+      left: 0;
+      right: 0;
       height: 3px;
-      border-radius: 2px;
-      background: linear-gradient(90deg, transparent, var(--accent2), transparent);
-      filter: blur(0.5px);
-      animation: div-scan 4s cubic-bezier(0.4, 0, 0.6, 1) 2s infinite;
-      opacity: 0.5;
-    }
-    @keyframes div-scan {
-      0%   { left: -15%; opacity: 0; }
-      5%   { opacity: 0.75; }
-      95%  { opacity: 0.75; }
-      100% { left: 110%; opacity: 0; }
-    }
-    /* Corner tick marks */
-    .divider-wrap {
-      position: relative;
-      display: flex;
-      align-items: center;
-      overflow: hidden;
-    }
-    .divider-wrap::before,
-    .divider-wrap::after {
-      content: '';
-      flex-shrink: 0;
-      width: 3rem;
-      height: 1px;
       background: transparent;
+      border-top: 1px solid var(--accent2);
+      border-radius: 2px;
+      clip-path: inset(0 0 0 93%);
+      animation: arc-sweep-ccw 7s linear infinite;
+      opacity: 0.35;
+    }
+    @keyframes arc-sweep-cw {
+      0%   { clip-path: inset(0 100% 0 0);   opacity: 0;    }
+      5%   { opacity: 0.85; }
+      50%  { clip-path: inset(0 50%  0 0);   }
+      95%  { opacity: 0.85; }
+      100% { clip-path: inset(0 0%   0 100%); opacity: 0; }
+    }
+    @keyframes arc-sweep-ccw {
+      0%   { clip-path: inset(0 0 0 100%);   opacity: 0;    }
+      5%   { opacity: 0.55; }
+      50%  { clip-path: inset(0 0    0 50%); }
+      95%  { opacity: 0.55; }
+      100% { clip-path: inset(0 100% 0 0%);  opacity: 0; }
     }
 
     /* Projects */
@@ -465,18 +461,17 @@
     .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; }
     .contact-tagline { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; color: var(--heading); line-height: 1.3; margin-bottom: 1.5rem; }
     .contact-tagline em { font-style: italic; color: var(--accent); }
-    .contact-note { font-size: 0.93rem; line-height: 1.8; color: var(--text); }
+    .contact-note { font-size: 0.93rem; line-height: 1.8; color: var(--text); margin-bottom: 2rem; }
     .contact-links { display: flex; flex-direction: column; gap: 0; }
-    .contact-link { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--line); text-decoration: none; position: relative; transition: padding-left 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+    .contact-link { display: flex; justify-content: space-between; align-items: center; padding: 1.25rem 0; border-bottom: 1px solid var(--line); text-decoration: none; position: relative; transition: padding-left 0.35s cubic-bezier(0.4, 0, 0.2, 1); gap: 1rem; }
     .contact-link::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: var(--accent); transform: scaleY(0); transform-origin: bottom; transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
     .contact-link:first-child { border-top: 1px solid var(--line); }
     .contact-link:hover { padding-left: 1rem; }
     .contact-link:hover::before { transform: scaleY(1); }
+    .contact-link-left { display: flex; flex-direction: column; gap: 0.2rem; }
     .contact-link-label { font-family: var(--serif); font-size: 1.2rem; color: var(--heading); }
     .contact-link-detail { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--text); }
     .contact-link:hover .contact-link-detail { color: var(--accent); }
-    .contact-link-arrow { color: var(--muted); font-size: 1rem; transition: transform 0.2s, color 0.2s; }
-    .contact-link:hover .contact-link-arrow { transform: translate(4px, -4px); color: var(--accent); }
 
     /* Achievements */
     #achievements { background: var(--bg); }
@@ -697,49 +692,13 @@
 
     /* Spark canvas — full page overlay, above all content, below cursor */
     #particle-canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 9997;      /* above content (100 nav) and drawer (99), below cursor (9999) and grain (9998) */
-      pointer-events: none;
-      opacity: 1;
+      display: none;
     }
 
-    /* Section number — slow char flicker */
-    @keyframes num-flicker {
-      0%, 89%   { opacity: 1; }
-      90%       { opacity: 0.3; }
-      92%       { opacity: 1; }
-      94%       { opacity: 0.4; }
-      96%       { opacity: 1; }
-    }
-    .section-num { animation: num-flicker 8s ease-in-out infinite; }
-    .section-header:nth-of-type(2) .section-num { animation-delay: 1.3s; }
-    .section-header:nth-of-type(3) .section-num { animation-delay: 2.6s; }
-
-    /* Section title italic — shimmer gradient, both modes */
-    @keyframes title-shimmer {
-      0%   { background-position: -200% center; }
-      100% { background-position: 200% center; }
-    }
+    /* Section title italic — static accent colour, no animation */
     .section-title em, .hero-name em, .contact-tagline em {
-      display: inline;
-      background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 40%, var(--accent) 80%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      animation: title-shimmer 5s linear infinite;
-    }
-    /* Light mode: ensure shimmer is visible (darker accent has better contrast) */
-    html[data-theme="light"] .section-title em,
-    html[data-theme="light"] .hero-name em,
-    html[data-theme="light"] .contact-tagline em {
-      background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 45%, var(--accent) 85%);
-      background-size: 200% auto;
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--accent);
+      font-style: italic;
     }
 
     /* Light mode explicit readability fixes */
@@ -824,64 +783,14 @@
       color: var(--muted);
     }
 
-    /* Skill dots — staggered glow breathe */
-    @keyframes dot-breathe-skill {
-      0%, 100% { box-shadow: 0 0 0 0 transparent; }
-      50%       { box-shadow: 0 0 5px 1px var(--accent-a35); }
-    }
-    .skill-dot.filled { animation: dot-breathe-skill 3.5s ease-in-out infinite; }
-    .skill-row:nth-child(2) .skill-dot.filled { animation-delay: 0.5s; }
-    .skill-row:nth-child(3) .skill-dot.filled { animation-delay: 1.0s; }
-    .skill-row:nth-child(4) .skill-dot.filled { animation-delay: 1.5s; }
-    .skill-row:nth-child(5) .skill-dot.filled { animation-delay: 2.0s; }
-    .skill-row:nth-child(6) .skill-dot.filled { animation-delay: 2.5s; }
+    /* Skill dots — static filled state, no animation */
 
-    /* Experience items — animated data-stream line on left edge */
-    .exp-item { position: relative; overflow: visible; }
-    .exp-item::before {
-      content: '';
-      position: absolute;
-      left: -3rem;
-      top: 0; bottom: 0;
-      width: 1px;
-      background: linear-gradient(180deg, transparent 0%, var(--accent) 35%, var(--accent2) 65%, transparent 100%);
-      background-size: 100% 200%;
-      animation: data-stream 4s linear infinite;
-      opacity: 0.3;
-    }
-    @keyframes data-stream {
-      0%   { background-position: 0 200%; }
-      100% { background-position: 0 -200%; }
-    }
-    .exp-item:nth-child(2)::before { animation-delay: -1s; }
-    .exp-item:nth-child(3)::before { animation-delay: -2s; }
-    .exp-item:nth-child(4)::before { animation-delay: -3s; }
-    .exp-item:nth-child(5)::before { animation-delay: -1.5s; }
-    .exp-item:nth-child(6)::before { animation-delay: -2.5s; }
-    .exp-item:nth-child(7)::before { animation-delay: -0.5s; }
+    /* Experience items — no ambient animation */
 
-    /* Stat numbers — slow glow pulse */
-    @keyframes stat-glow {
-      0%, 100% { text-shadow: none; }
-      50%       { text-shadow: 0 0 20px var(--accent-a35); }
-    }
-    .stat-num { animation: stat-glow 4.5s ease-in-out infinite; }
-    .stat-row:nth-child(2) .stat-num { animation-delay: 1.1s; }
-    .stat-row:nth-child(3) .stat-num { animation-delay: 2.2s; }
-    .stat-row:nth-child(4) .stat-num { animation-delay: 3.3s; }
+    /* Stat numbers — no ambient animation */
 
-    /* Divider node — persistent slow pulse */
-    @keyframes node-pulse {
-      0%, 100% { box-shadow: 0 0 6px var(--accent-a35); transform: scale(1); }
-      50%       { box-shadow: 0 0 14px var(--accent-a45); transform: scale(1.4); }
-    }
-    .divider-node { animation: node-pulse 3.2s ease-in-out infinite; }
-    .divider-wrap:nth-of-type(2) .divider-node { animation-delay: 0.5s; }
-    .divider-wrap:nth-of-type(3) .divider-node { animation-delay: 1.0s; }
-    .divider-wrap:nth-of-type(4) .divider-node { animation-delay: 1.5s; }
-    .divider-wrap:nth-of-type(5) .divider-node { animation-delay: 2.0s; }
-    .divider-wrap:nth-of-type(6) .divider-node { animation-delay: 2.5s; }
-    .divider-wrap:nth-of-type(7) .divider-node { animation-delay: 0.3s; }
+    /* Divider node — static glow, no pulse animation */
+    .divider-node { box-shadow: 0 0 6px var(--accent-a35); }
 
     /* Hero glow — slow atmospheric drift */
     @keyframes glow-drift {
@@ -891,15 +800,7 @@
     }
     .hero-glow { animation: glow-drift 20s ease-in-out infinite; }
 
-    /* Nav logo accent dot — morse blink */
-    @keyframes morse-blink {
-      0%, 44%  { opacity: 1; }
-      48%       { opacity: 0; }
-      52%       { opacity: 1; }
-      56%       { opacity: 0; }
-      60%, 100% { opacity: 1; }
-    }
-    .nav-logo span { animation: morse-blink 9s ease-in-out infinite; }
+    /* Nav logo accent dot — static */
 
     /* Scroll progress bar — animated gradient flow */
     @keyframes gradient-flow {
@@ -912,24 +813,71 @@
       animation: gradient-flow 2.8s linear infinite;
     }
 
-    /* Contact links — slow accent shimmer on the left bar */
+    /* Contact links — revolving ring on icon, matching photo ring style */
     .contact-link::before {
       transition: transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.3s;
     }
-    @keyframes bar-breathe {
-      0%, 100% { opacity: 0.35; }
-      50%       { opacity: 0.65; }
-    }
     .contact-link:not(:hover)::before {
-      transform: scaleY(0.15);
-      animation: bar-breathe 4s ease-in-out infinite;
-      transform-origin: bottom;
+      transform: scaleY(0);
+      opacity: 0;
     }
-    /* Override: keep full bar on hover, no animation */
     .contact-link:hover::before {
       animation: none;
       transform: scaleY(1);
       opacity: 1;
+    }
+
+    /* Icon orbit ring */
+    .contact-link-icon {
+      position: relative;
+      width: 38px;
+      height: 38px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .contact-link-icon svg.icon-svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--muted);
+      transition: stroke 0.25s;
+      position: relative;
+      z-index: 1;
+    }
+    .contact-link:hover .contact-link-icon svg.icon-svg { stroke: var(--accent); }
+    .contact-link-ring {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .contact-link:hover .contact-link-ring { opacity: 1; }
+    .contact-link-ring .ring-track {
+      fill: none;
+      stroke: var(--line);
+      stroke-width: 1;
+    }
+    .contact-link-ring .ring-arc {
+      fill: none;
+      stroke: var(--accent);
+      stroke-width: 1.5;
+      stroke-linecap: round;
+      stroke-dasharray: 22 200;
+      stroke-dashoffset: 0;
+      animation: revolve-cw 2.2s linear infinite;
+      filter: drop-shadow(0 0 3px var(--accent));
+    }
+    .contact-link-ring .ring-arc-2 {
+      fill: none;
+      stroke: var(--accent2);
+      stroke-width: 1;
+      stroke-linecap: round;
+      stroke-dasharray: 11 200;
+      stroke-dashoffset: 0;
+      animation: revolve-ccw 3.1s linear infinite;
+      opacity: 0.6;
     }
 
     /* ── prefers-reduced-motion ─────────────────────────────── */
@@ -945,13 +893,14 @@
         animation: none !important;
       }
       .section-title em, .hero-name em, .contact-tagline em {
-        background: var(--accent) !important;
-        -webkit-text-fill-color: var(--accent) !important;
+        color: var(--accent) !important;
         animation: none !important;
       }
       .reveal { opacity: 1; transform: none; transition: none; }
       .hero-glow { animation: none !important; }
       #particle-canvas { display: none; }
+      .about-photo-ring { display: none; }
+      .contact-link-ring { display: none; }
       html { scroll-behavior: auto; }
     }
 
@@ -997,23 +946,26 @@
       z-index: 1;
       box-shadow: 0 0 6px var(--accent-a35);
     }
-    /* Stagger scan animation per divider position */
+    /* Stagger arc animation per divider position */
     .divider-wrap:nth-of-type(1) .divider::before  { animation-delay: 0s; }
-    .divider-wrap:nth-of-type(2) .divider::before  { animation-delay: 0.6s; }
-    .divider-wrap:nth-of-type(3) .divider::before  { animation-delay: 1.2s; }
-    .divider-wrap:nth-of-type(4) .divider::before  { animation-delay: 1.8s; }
-    .divider-wrap:nth-of-type(5) .divider::before  { animation-delay: 2.4s; }
-    .divider-wrap:nth-of-type(6) .divider::before  { animation-delay: 3.0s; }
-    .divider-wrap:nth-of-type(7) .divider::before  { animation-delay: 3.6s; }
-    .divider-wrap:nth-of-type(1) .divider::after   { animation-delay: 2s; }
-    .divider-wrap:nth-of-type(2) .divider::after   { animation-delay: 2.6s; }
-    .divider-wrap:nth-of-type(3) .divider::after   { animation-delay: 3.2s; }
-    .divider-wrap:nth-of-type(4) .divider::after   { animation-delay: 3.8s; }
-    .divider-wrap:nth-of-type(5) .divider::after   { animation-delay: 0.4s; }
-    .divider-wrap:nth-of-type(6) .divider::after   { animation-delay: 1.0s; }
-    .divider-wrap:nth-of-type(7) .divider::after   { animation-delay: 1.6s; }
+    .divider-wrap:nth-of-type(2) .divider::before  { animation-delay: -0.7s; }
+    .divider-wrap:nth-of-type(3) .divider::before  { animation-delay: -1.4s; }
+    .divider-wrap:nth-of-type(4) .divider::before  { animation-delay: -2.1s; }
+    .divider-wrap:nth-of-type(5) .divider::before  { animation-delay: -2.8s; }
+    .divider-wrap:nth-of-type(6) .divider::before  { animation-delay: -3.5s; }
+    .divider-wrap:nth-of-type(7) .divider::before  { animation-delay: -4.2s; }
+    .divider-wrap:nth-of-type(1) .divider::after   { animation-delay: -2s; }
+    .divider-wrap:nth-of-type(2) .divider::after   { animation-delay: -3s; }
+    .divider-wrap:nth-of-type(3) .divider::after   { animation-delay: -4s; }
+    .divider-wrap:nth-of-type(4) .divider::after   { animation-delay: -5s; }
+    .divider-wrap:nth-of-type(5) .divider::after   { animation-delay: -1s; }
+    .divider-wrap:nth-of-type(6) .divider::after   { animation-delay: -6s; }
+    .divider-wrap:nth-of-type(7) .divider::after   { animation-delay: -6.5s; }
     /* Inside divider-wrap the .divider needs no side margins */
     .divider-wrap .divider { margin: 0; flex: 1; width: auto; }
+    /* Left divider (before node) — static line only, no sweep */
+    .divider-wrap .divider:first-of-type::before,
+    .divider-wrap .divider:first-of-type::after { display: none; }
 
   </style>
 </head>
@@ -1674,12 +1626,52 @@
     });
   }
 
+  const CONTACT_ICONS = {
+    Email:      `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
+    LinkedIn:   `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>`,
+    GitHub:     `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>`,
+    Instagram:  `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>`,
+    'X / Twitter': `<svg class="icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l16 16M4 20L20 4"/></svg>`,
+  };
+
+  // Perimeter of a rounded-rect for stroke-dasharray — circumscribed 38x38 with r=19 = circle
+  const RING_CIRC = Math.round(2 * Math.PI * 19); // 119
+
   function renderContact() {
     const intro = document.getElementById('contact-intro');
     intro.innerHTML = `
       <div class="section-num" style="margin-bottom:1rem">07 / Contact</div>
       <h2 class="contact-tagline">${DATA.contactTagline}</h2>
-      <p class="contact-note">${DATA.contactNote}</p>`;
+      <p class="contact-note">${DATA.contactNote}</p>
+      <div class="contact-links" id="contact-links-list"></div>`;
+
+    const list = document.getElementById('contact-links-list');
+    DATA.contactLinks.forEach(c => {
+      const iconSvg = CONTACT_ICONS[c.label] || '';
+      const ringHtml = iconSvg ? `
+        <svg class="contact-link-ring" viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
+          <circle class="ring-track" cx="19" cy="19" r="18"/>
+          <circle class="ring-arc"   cx="19" cy="19" r="18"
+            pathLength="${RING_CIRC}"
+            stroke-dasharray="${Math.round(RING_CIRC*0.18)} ${RING_CIRC}"
+            stroke-dashoffset="0"/>
+          <circle class="ring-arc-2" cx="19" cy="19" r="18"
+            pathLength="${RING_CIRC}"
+            stroke-dasharray="${Math.round(RING_CIRC*0.09)} ${RING_CIRC}"
+            stroke-dashoffset="${Math.round(RING_CIRC*0.5)}"/>
+        </svg>` : '';
+      list.innerHTML += `
+        <a class="contact-link" href="${c.href}" target="_blank" rel="noopener">
+          <div class="contact-link-left">
+            <span class="contact-link-label">${c.label}</span>
+            <span class="contact-link-detail">${c.detail}</span>
+          </div>
+          <div class="contact-link-icon">
+            ${iconSvg}
+            ${ringHtml}
+          </div>
+        </a>`;
+    });
   }
 
   const SOCIAL_ICONS = {
@@ -1763,142 +1755,31 @@
     });
   })();
 
-  // ── Regular Hex Background ─────────────────────────────────
-  class IsometricHexBackground {
+  // ── Signal Wave Background ─────────────────────────────────
+  // Slow, continuous sine-wave signal traces — ECI engineering aesthetic
+  class SignalWaveBackground {
     constructor() {
       this.canvas = document.getElementById('bg-canvas');
       this.ctx    = this.canvas.getContext('2d');
-      this.mouse  = { x: -9999, y: -9999 };
       this.t      = 0;
-      this.cells  = [];
       this._raf   = null;
       this._resizeTimer = null;
-      this.init();
-      this.animate();
-      window.addEventListener('resize', () => {
-        clearTimeout(this._resizeTimer);
-        this._resizeTimer = setTimeout(() => this.init(), 120);
-      });
-      window.addEventListener('mousemove', e => { this.mouse.x = e.clientX; this.mouse.y = e.clientY; }, { passive: true });
-    }
 
-    init() {
-      const W = this.canvas.width  = window.innerWidth;
-      const H = this.canvas.height = window.innerHeight;
+      // Wave lanes: y=height fraction, amp=px, freq=spatial, speed=time, phase, useAccent2
+      this.waveDefs = [
+        { y: 0.18, amp: 28, freq: 0.008,  speed: 0.003,  phase: 0,            useAccent2: false },
+        { y: 0.38, amp: 18, freq: 0.012,  speed: 0.0022, phase: Math.PI,      useAccent2: true  },
+        { y: 0.57, amp: 32, freq: 0.007,  speed: 0.0018, phase: Math.PI/2,    useAccent2: false },
+        { y: 0.75, amp: 14, freq: 0.015,  speed: 0.0028, phase: Math.PI*1.4,  useAccent2: true  },
+        { y: 0.92, amp: 22, freq: 0.010,  speed: 0.002,  phase: Math.PI*0.7,  useAccent2: false },
+      ];
 
-      // Regular flat-top hexagons — no squash
-      const S     = 46;           // circumradius
-      const xStep = S * Math.sqrt(3);   // horizontal spacing between hex centres
-      const yStep = S * 1.5;            // vertical spacing between hex centres
-
-      const cols = Math.ceil(W / xStep) + 3;
-      const rows = Math.ceil(H / yStep) + 3;
-
-      this.cells = [];
-      this.S = S;
-      this.xStep = xStep;
-      this.yStep = yStep;
-      this.W = W; this.H = H;
-
-      for (let row = -1; row < rows; row++) {
-        for (let col = -1; col < cols; col++) {
-          // Odd rows offset right by xStep/2 — canonical flat-top tiling
-          const cx = (col + (row & 1) * 0.5) * xStep;
-          const cy = row * yStep;
-          this.cells.push({ cx, cy, phase: Math.random() * Math.PI * 2 });
-        }
-      }
-    }
-
-    // Regular flat-top hex — no squash
-    hexPath(cx, cy, r, ctx) {
-      ctx.beginPath();
-      for (let i = 0; i < 6; i++) {
-        const a = (Math.PI / 3) * i;
-        const vx = cx + r * Math.cos(a);
-        const vy = cy + r * Math.sin(a);
-        i === 0 ? ctx.moveTo(vx, vy) : ctx.lineTo(vx, vy);
-      }
-      ctx.closePath();
-    }
-
-    animate() {
-      const { W, H } = this;
-      this.ctx.clearRect(0, 0, W, H);
-      this.t += 0.007;
-
-      const isDark    = document.documentElement.getAttribute('data-theme') !== 'light';
-      const accentRGB = isDark ? '212,168,90' : '138,88,0';
-      const baseAlpha = isDark ? 0.065 : 0.05;
-      const edgeAlpha = isDark ? 0.17  : 0.12;
-
-      const { S, mouse, t } = this;
-      const mouseR   = 190;
-      const pad      = S + 2;
-      const ctx      = this.ctx;
-
-      for (const cell of this.cells) {
-        const { cx, cy, phase } = cell;
-
-        // Off-screen cull — skip cells fully outside viewport
-        if (cx + pad < 0 || cx - pad > W || cy + pad < 0 || cy - pad > H) continue;
-
-        const dx   = cx - mouse.x;
-        const dy   = cy - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        const prox = Math.max(0, 1 - dist / mouseR);
-
-        const shimmer = (Math.sin(t + phase) + 1) * 0.5;
-
-        const fillA   = baseAlpha + shimmer * 0.04 + prox * 0.11;
-        const strokeA = edgeAlpha + shimmer * 0.05 + prox * 0.24;
-
-        this.hexPath(cx, cy, S - 1, ctx);
-        ctx.fillStyle = `rgba(${accentRGB},${fillA})`;
-        ctx.fill();
-
-        this.hexPath(cx, cy, S - 1, ctx);
-        ctx.strokeStyle = `rgba(${accentRGB},${strokeA})`;
-        ctx.lineWidth   = 0.6 + prox * 0.8;
-        ctx.stroke();
-
-        // Vertex corner dots
-        for (let i = 0; i < 6; i++) {
-          const a  = (Math.PI / 3) * i;
-          const vx = cx + (S - 1) * Math.cos(a);
-          const vy = cy + (S - 1) * Math.sin(a);
-          ctx.beginPath();
-          ctx.arc(vx, vy, 1 + prox * 1.2, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${accentRGB},${strokeA * 0.85})`;
-          ctx.fill();
-        }
-      }
-
-      this._raf = requestAnimationFrame(() => this.animate());
-    }
-  }
-
-  // ── Full-Page Spark / Ember System ────────────────────────
-  class SparkSystem {
-    constructor() {
-      this.canvas = document.getElementById('particle-canvas');
-      this.ctx    = this.canvas.getContext('2d');
-      this.sparks = [];
-      this.trails = [];          // fading trail segments
-      this._resizeTimer = null;
       this.resize();
-      this.seed();
       this.animate();
       window.addEventListener('resize', () => {
         clearTimeout(this._resizeTimer);
-        this._resizeTimer = setTimeout(() => { this.resize(); this.seed(); }, 150);
-      }, { passive: true });
-
-      // Spawn burst on click / tap anywhere (including drawer)
-      document.addEventListener('click', e => this.burst(e.clientX, e.clientY, 10), { passive: true });
-      document.addEventListener('touchstart', e => {
-        if (e.touches[0]) this.burst(e.touches[0].clientX, e.touches[0].clientY, 8);
-      }, { passive: true });
+        this._resizeTimer = setTimeout(() => this.resize(), 120);
+      });
     }
 
     resize() {
@@ -1906,183 +1787,60 @@
       this.H = this.canvas.height = window.innerHeight;
     }
 
-    // How many ambient sparks to seed
-    get targetCount() {
-      return Math.min(55, Math.max(22, Math.floor((this.W * this.H) / 22000)));
-    }
-
-    seed() {
-      // Trim or pad to target
-      while (this.sparks.length > this.targetCount) this.sparks.pop();
-      while (this.sparks.length < this.targetCount) this.sparks.push(this.makeSpark(true));
-    }
-
-    makeSpark(scatter = false) {
-      const W = this.W, H = this.H;
-      // Spawn from random edge or anywhere if scatter
-      let x, y;
-      if (scatter) {
-        x = Math.random() * W;
-        y = Math.random() * H;
-      } else {
-        // Spawn from bottom or random sides
-        const edge = Math.random();
-        if (edge < 0.5) { x = Math.random() * W; y = H + 4; }
-        else if (edge < 0.7) { x = -4; y = Math.random() * H; }
-        else { x = W + 4; y = Math.random() * H; }
-      }
-
-      const angle = -Math.PI * (0.35 + Math.random() * 0.9);  // mostly upward
-      const speed = 0.35 + Math.random() * 0.7;
-      const isEmber = Math.random() < 0.3;   // 30% embers (mini hex), 70% sparks (dot)
-
-      return {
-        x, y,
-        vx: Math.cos(angle) * speed * (0.6 + Math.random() * 0.8),
-        vy: Math.sin(angle) * speed,
-        gravity: 0.004 + Math.random() * 0.006,   // slight upward fight
-        life:    0,
-        maxLife: isEmber ? 320 + Math.random() * 180
-                         : 180 + Math.random() * 140,
-        size:    isEmber ? 1.6 + Math.random() * 1.2
-                         : 0.7 + Math.random() * 1.0,
-        isEmber,
-        rot:     Math.random() * Math.PI * 2,
-        rotV:    (Math.random() - 0.5) * 0.04,
-        useAccent2: Math.random() < 0.38,  // 38% use teal accent
-        prevX: x, prevY: y,
-      };
-    }
-
-    burst(cx, cy, count = 12) {
-      for (let i = 0; i < count; i++) {
-        const angle = (Math.PI * 2 * i / count) + (Math.random() - 0.5) * 0.6;
-        const speed = 1.2 + Math.random() * 2.2;
-        this.sparks.push({
-          x: cx, y: cy,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 0.8,
-          gravity: 0.06 + Math.random() * 0.04,
-          life: 0,
-          maxLife: 60 + Math.random() * 60,
-          size: 0.9 + Math.random() * 1.4,
-          isEmber: Math.random() < 0.4,
-          rot: Math.random() * Math.PI * 2,
-          rotV: (Math.random() - 0.5) * 0.12,
-          useAccent2: Math.random() < 0.4,
-          prevX: cx, prevY: cy,
-          isBurst: true,
-        });
-      }
-    }
-
     animate() {
       const { W, H, ctx } = this;
       ctx.clearRect(0, 0, W, H);
+      this.t += 1;
 
-      const isDark    = document.documentElement.getAttribute('data-theme') !== 'light';
-      // Two accent RGB strings — gold and teal, adapted per theme
-      const rgb1 = isDark ? '212,168,90'  : '122,72,0';
-      const rgb2 = isDark ? '109,191,170' : '15,90,71';
+      const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+      const rgb1   = isDark ? '212,168,90'  : '138,88,0';
+      const rgb2   = isDark ? '109,191,170' : '15,90,71';
+      const alpha1 = isDark ? 0.22 : 0.16;
+      const alpha2 = isDark ? 0.18 : 0.12;
 
-      const dead = [];
-      for (let i = 0; i < this.sparks.length; i++) {
-        const p = this.sparks[i];
+      for (const w of this.waveDefs) {
+        const baseY = w.y * H;
+        const rgb   = w.useAccent2 ? rgb2 : rgb1;
+        const alphaP = w.useAccent2 ? alpha2 : alpha1;
 
-        // Physics
-        p.prevX = p.x; p.prevY = p.y;
-        p.vx += (Math.random() - 0.5) * 0.015;   // micro turbulence
-        p.vy += p.gravity;
-        p.x  += p.vx;
-        p.y  += p.vy;
-        p.rot += p.rotV;
-        p.life++;
-
-        // Lifetime alpha envelope — sharp rise, long sustain, soft fade
-        const t = p.life / p.maxLife;
-        let alpha;
-        if (t < 0.08)      alpha = t / 0.08;
-        else if (t < 0.75) alpha = 1;
-        else               alpha = 1 - (t - 0.75) / 0.25;
-        alpha *= isDark ? 0.72 : 0.65;
-        if (alpha < 0.01) alpha = 0;
-
-        const rgb   = p.useAccent2 ? rgb2 : rgb1;
-        const color = `rgba(${rgb},${alpha})`;
-
-        if (p.isEmber) {
-          // Mini rotating hexagon ember
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate(p.rot);
-          ctx.beginPath();
-          const r = p.size * 1.8;
-          for (let k = 0; k < 6; k++) {
-            const a = (Math.PI / 3) * k;
-            k === 0 ? ctx.moveTo(r * Math.cos(a), r * Math.sin(a))
-                    : ctx.lineTo(r * Math.cos(a), r * Math.sin(a));
-          }
-          ctx.closePath();
-          ctx.strokeStyle = color;
-          ctx.lineWidth   = 0.7;
-          ctx.stroke();
-          // inner glow dot
-          ctx.beginPath();
-          ctx.arc(0, 0, p.size * 0.35, 0, Math.PI * 2);
-          ctx.fillStyle = color;
-          ctx.fill();
-          ctx.restore();
-        } else {
-          // Spark — short line trail in direction of travel + tip dot
-          const dx = p.x - p.prevX;
-          const dy = p.y - p.prevY;
-          const len = Math.sqrt(dx * dx + dy * dy) || 1;
-          const trailLen = 3.5 + p.size * 2;
-          ctx.beginPath();
-          ctx.moveTo(p.x - (dx / len) * trailLen, p.y - (dy / len) * trailLen);
-          ctx.lineTo(p.x, p.y);
-          ctx.strokeStyle = color;
-          ctx.lineWidth   = p.size * 0.8;
-          ctx.lineCap     = 'round';
-          ctx.stroke();
-          // bright tip
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.size * 0.7, 0, Math.PI * 2);
-          ctx.fillStyle = color;
-          ctx.fill();
+        // Draw wave trace
+        ctx.beginPath();
+        for (let x = 0; x <= W; x += 2) {
+          const y = baseY + Math.sin(x * w.freq + this.t * w.speed + w.phase) * w.amp;
+          x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
         }
+        const grad = ctx.createLinearGradient(0, 0, W, 0);
+        grad.addColorStop(0,    `rgba(${rgb},0)`);
+        grad.addColorStop(0.06, `rgba(${rgb},${alphaP})`);
+        grad.addColorStop(0.94, `rgba(${rgb},${alphaP})`);
+        grad.addColorStop(1,    `rgba(${rgb},0)`);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth   = 0.8;
+        ctx.stroke();
 
-        // Mark dead
-        if (p.life >= p.maxLife || p.y > H + 20 || p.x < -20 || p.x > W + 20) {
-          dead.push(i);
-        }
+        // Travelling bright node riding the wave
+        const nodeX = ((this.t * w.speed * 140 + w.phase * 60) % (W + 80)) - 40;
+        const nodeY = baseY + Math.sin(nodeX * w.freq + this.t * w.speed + w.phase) * w.amp;
+        const nodeG = ctx.createRadialGradient(nodeX, nodeY, 0, nodeX, nodeY, 10);
+        nodeG.addColorStop(0,   `rgba(${rgb},0.75)`);
+        nodeG.addColorStop(0.3, `rgba(${rgb},0.3)`);
+        nodeG.addColorStop(1,   `rgba(${rgb},0)`);
+        ctx.beginPath();
+        ctx.arc(nodeX, nodeY, 10, 0, Math.PI * 2);
+        ctx.fillStyle = nodeG;
+        ctx.fill();
       }
 
-      // Replace dead sparks — ambient ones respawn, burst ones are removed
-      for (let i = dead.length - 1; i >= 0; i--) {
-        const p = this.sparks[dead[i]];
-        if (p.isBurst) {
-          this.sparks.splice(dead[i], 1);
-        } else {
-          this.sparks[dead[i]] = this.makeSpark(false);
-        }
-      }
-
-      // Maintain ambient count
-      while (this.sparks.filter(s => !s.isBurst).length < this.targetCount) {
-        this.sparks.push(this.makeSpark(false));
-      }
-
-      requestAnimationFrame(() => this.animate());
+      this._raf = requestAnimationFrame(() => this.animate());
     }
   }
+
   function initMagnetic() {
     // Buttons no longer move — cursor snaps to them instead (see cursor logic below)
   }
 
-  // ── Init background + sparks ─────────────────────────────────
-  new IsometricHexBackground();
-  new SparkSystem();
+  // ── Init background ──────────────────────────────────────────
+  new SignalWaveBackground();
   initMagnetic();
 
   // ── Cursor (mouse only) ─────────────────────────────────────
