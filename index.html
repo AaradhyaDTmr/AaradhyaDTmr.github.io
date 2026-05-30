@@ -175,6 +175,18 @@
       opacity: 0.55;
     }
 
+    /* PCB Traces Canvas — fixed, corner-anchored, non-obtrusive */
+    #pcb-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 1;
+    }
+
     /* Cursor */
     .cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; display: none; }
     @media (pointer: fine) { .cursor { display: block; } }
@@ -304,7 +316,7 @@
         var(--accent) 300deg,
         transparent 360deg
       );
-      animation: border-revolve 4s linear infinite;
+      animation: border-revolve 12s linear infinite;
       z-index: 0;
     }
     .status-card::after {
@@ -342,6 +354,30 @@
 
     /* Sections */
     section { padding: 7rem 3rem; position: relative; }
+    /* Sections are transparent — canvas bleeds through */
+    #projects, #apps, #experience, #skills, #achievements { background: transparent; }
+    /* Semi-transparent frosted glass content wrappers within transparent sections */
+    #projects .projects-grid,
+    #apps .apps-grid,
+    #experience .exp-list,
+    #skills .skills-layout,
+    #achievements .achievements-grid { position: relative; z-index: 1; }
+    /* Frosted overlay per section — sits behind content, above canvas */
+    #projects::before, #apps::before, #experience::before, #skills::before, #achievements::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--section-frost);
+      pointer-events: none;
+      z-index: 0;
+    }
+    #projects > *, #apps > *, #experience > *, #skills > *, #achievements > * { position: relative; z-index: 1; }
+    :root { --section-frost: rgba(13,14,17,0.72); }
+    html[data-theme="light"] { --section-frost: rgba(245,242,236,0.80); }
+    /* Alternate section frost depth */
+    #apps::before, #skills::before { --section-frost: rgba(13,14,17,0.60); }
+    html[data-theme="light"] #apps::before,
+    html[data-theme="light"] #skills::before { --section-frost: rgba(237,232,222,0.72); }
     .section-header { margin-bottom: 4rem; }
     .section-num { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
     .section-title { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; color: var(--heading); line-height: 1.1; }
@@ -403,7 +439,6 @@
     }
 
     /* Projects */
-    #projects { background: var(--bg); }
     .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
     .project-card { background: var(--bg2); padding: 2.5rem; transition: background 0.3s; position: relative; overflow: hidden; }
     .project-card:only-child { grid-column: span 2; }
@@ -429,7 +464,6 @@
     .tag { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); padding: 0.3rem 0.6rem; border-radius: 2px; }
 
     /* Apps */
-    #apps { background: var(--bg2); }
     .apps-grid { display: flex; flex-wrap: wrap; gap: 1px; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
     .app-card { background: var(--bg3); padding: 2.5rem; transition: background 0.3s; position: relative; overflow: hidden; display: flex; flex-direction: column; gap: 1rem; flex: 1 1 0%; min-width: 320px; }
     .app-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px; background: var(--accent2); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
@@ -459,7 +493,6 @@
     .app-link.secondary:hover::after { width: 100%; }
 
     /* Experience */
-    #experience { background: var(--bg); }
     .exp-list { display: flex; flex-direction: column; }
     .exp-item { display: grid; grid-template-columns: 1fr 3fr 1fr; align-items: start; gap: 3rem; padding: 2.5rem 0; border-bottom: 1px solid var(--line); }
     .exp-item:first-child { border-top: 1px solid var(--line); }
@@ -469,7 +502,6 @@
     .exp-year { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; color: var(--accent); text-align: right; padding-top: 0.2rem; }
 
     /* Skills */
-    #skills { background: var(--bg2); }
     .skills-layout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
     .skill-group { background: var(--bg2); padding: 2.5rem; }
     .skill-group:hover { background: var(--bg3); }
@@ -486,20 +518,22 @@
     .skill-legend-dot.filled { background: var(--accent); }
 
     /* About */
-    #about { background: var(--bg); }
-    .about-layout { display: grid; grid-template-columns: 380px 1fr; gap: 5rem; align-items: start; }
+    #about { background: transparent; }
+    .about-layout { display: grid; grid-template-columns: 320px 1fr; gap: 5rem; align-items: start; }
     .about-text p { font-size: 0.95rem; line-height: 1.9; color: var(--text); margin-bottom: 1.2rem; }
     .about-text p strong { color: var(--heading); font-weight: 500; }
-    .about-stats { display: flex; flex-direction: column; gap: 0; }
-    .stat-row { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 0; border-bottom: 1px solid var(--line); }
-    .stat-row:first-child { border-top: 1px solid var(--line); }
-    .stat-num { font-family: var(--serif); font-size: 2.5rem; font-weight: 300; color: var(--heading); }
-    .stat-num span { font-size: 1.2rem; color: var(--accent); }
-    .stat-label { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); text-align: right; }
+    .about-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; margin-top: 1.5rem; border: 1px solid var(--line); border-radius: 3px; overflow: hidden; }
+    .stat-row { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 1rem 1.2rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); gap: 0.3rem; background: rgba(13,14,17,0.6); backdrop-filter: blur(8px); }
+    .stat-row:nth-child(2n) { border-right: none; }
+    .stat-row:nth-last-child(-n+2) { border-bottom: none; }
+    .stat-num { font-family: var(--serif); font-size: 2rem; font-weight: 300; color: var(--heading); line-height: 1; }
+    .stat-num span { font-size: 1rem; color: var(--accent); }
+    .stat-label { font-family: var(--mono); font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-align: left; line-height: 1.4; }
+    html[data-theme="light"] .stat-row { background: rgba(245,242,236,0.75); }
 
     /* Contact */
-    #contact { background: var(--bg2); }
-    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; }
+    #contact { background: transparent; }
+    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; min-height: 70vh; }
     .contact-tagline { font-family: var(--serif); font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 300; color: var(--heading); line-height: 1.3; margin-bottom: 1.5rem; }
     .contact-tagline em { font-style: italic; color: var(--accent); }
     .contact-note { font-size: 0.93rem; line-height: 1.8; color: var(--text); margin-bottom: 2rem; }
@@ -513,9 +547,10 @@
     .contact-link-label { font-family: var(--serif); font-size: 1.2rem; color: var(--heading); }
     .contact-link-detail { font-family: var(--mono); font-size: 0.65rem; letter-spacing: 0.08em; color: var(--text); }
     .contact-link:hover .contact-link-detail { color: var(--accent); }
+    /* Contact form wrapper — centered vertically in right half */
+    #contact-form-wrap { display: flex; align-items: center; justify-content: center; }
 
     /* Achievements */
-    #achievements { background: var(--bg); }
     .achievements-grid { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
     .achievement-item { background: var(--bg2); padding: 1.75rem 2.5rem; display: grid; grid-template-columns: 1fr 3fr 1fr; align-items: start; gap: 3rem; border-bottom: 1px solid var(--line); transition: background 0.3s, padding-left 0.3s; }
     .achievement-item:last-child { border-bottom: none; }
@@ -540,11 +575,11 @@
     .about-photo-wrap {
       position: relative;
       width: 100%;
-      max-width: 360px;
-      margin: 0 0 2rem;
+      max-width: 280px;
+      margin: 0 0 0;
       flex-shrink: 0;
     }
-    .about-photo-wrap::before { content: ''; position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 1px solid var(--accent); border-radius: 2px; opacity: 0.35; transition: opacity 0.4s; }
+    .about-photo-wrap::before { content: ''; position: absolute; top: 10px; left: 10px; right: -10px; bottom: -10px; border: 1px solid var(--accent); border-radius: 2px; opacity: 0.3; transition: opacity 0.4s; }
     .about-photo-wrap:hover::before { opacity: 0; }
 
     /* Revolving ring SVG overlay */
@@ -613,7 +648,9 @@
     .about-left-col { display: flex; flex-direction: column; gap: 0; align-items: flex-start; text-align: left; }
 
     @media (max-width: 900px) {
-      .about-photo-wrap { width: 100%; max-width: 260px; }
+      .about-photo-wrap { width: 100%; max-width: 220px; }
+      .about-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .about-stats { grid-template-columns: repeat(2, 1fr); }
       .back-top { bottom: 4.5rem; right: 1.5rem; }
     }
     footer { padding: 2rem 3rem; border-top: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; gap: 1rem; text-align: center; }
@@ -698,7 +735,7 @@
       #hero { gap: 2.5rem; padding: 0 2rem; }
       section { padding: 6rem 2rem; }
       nav { padding: 1.5rem 2rem; }
-      .about-layout { grid-template-columns: 280px 1fr; gap: 3.5rem; }
+      .about-layout { grid-template-columns: 260px 1fr; gap: 3rem; }
       .skills-layout { grid-template-columns: repeat(2, 1fr); }
     }
 
@@ -1018,6 +1055,7 @@
 
   <div class="scroll-progress" id="scrollProgress"></div>
   <canvas id="bg-canvas"></canvas>
+  <canvas id="pcb-canvas"></canvas>
   <canvas id="particle-canvas"></canvas>
 
   <div class="cursor" id="cursor">
@@ -1916,8 +1954,176 @@
     // Buttons no longer move — cursor snaps to them instead (see cursor logic below)
   }
 
+  // ── PCB Circuit Traces Background ───────────────────────────
+  // Fixed, corner-anchored PCB-style circuit traces with traveling current glow.
+  // Lives at z-index:0 so it shows behind section content but in front of sine canvas.
+  class PCBTraces {
+    constructor() {
+      this.canvas = document.getElementById('pcb-canvas');
+      this.ctx    = this.canvas.getContext('2d');
+      this.t      = 0;
+      this._raf   = null;
+      this._resizeTimer = null;
+      this.W = 0; this.H = 0;
+      this.traces = [];
+      this.resize();
+      this.animate();
+      window.addEventListener('resize', () => {
+        clearTimeout(this._resizeTimer);
+        this._resizeTimer = setTimeout(() => { this.resize(); this.buildTraces(); }, 150);
+      });
+    }
+
+    resize() {
+      this.W = this.canvas.width  = window.innerWidth;
+      this.H = this.canvas.height = window.innerHeight;
+      this.buildTraces();
+    }
+
+    // Build 4 corner clusters of L/T-shaped PCB traces
+    buildTraces() {
+      const W = this.W, H = this.H;
+      const M = Math.min(W, H) * 0.28; // margin from corner
+      const S = Math.min(W, H) * 0.10; // segment step size
+
+      // Each trace is an array of [x,y] waypoints with right-angle turns (PCB style)
+      // We generate them deterministically from corners
+      const corners = [
+        { ox: 0,  oy: 0,  sx: 1,  sy: 1  }, // top-left
+        { ox: W,  oy: 0,  sx: -1, sy: 1  }, // top-right
+        { ox: 0,  oy: H,  sx: 1,  sy: -1 }, // bottom-left
+        { ox: W,  oy: H,  sx: -1, sy: -1 }, // bottom-right
+      ];
+
+      this.traces = [];
+      const patterns = [
+        // Each pattern: array of [dx, dy] moves (in units of S), then waypoints built
+        [[0,1],[2,1],[2,2],[4,2],[4,3],[6,3]],
+        [[1,0],[1,2],[3,2],[3,1],[5,1],[5,3]],
+        [[0,1],[1,1],[1,2],[3,2],[3,3],[5,3],[5,2]],
+        [[2,0],[2,1],[3,1],[3,3],[4,3],[4,2],[6,2]],
+        [[0,2],[2,2],[2,1],[4,1],[4,3],[5,3]],
+        [[1,0],[1,1],[2,1],[2,3],[4,3],[4,1],[6,1]],
+      ];
+
+      corners.forEach((c, ci) => {
+        // Pick 3 patterns per corner, slightly offset from each other
+        for (let pi = 0; pi < 3; pi++) {
+          const pat = patterns[(ci * 3 + pi) % patterns.length];
+          const offX = (pi - 1) * S * 0.45;
+          const offY = (pi - 1) * S * 0.35;
+          const pts = [[c.ox + c.sx * S * 0.5 + offX, c.oy + c.sy * S * 0.5 + offY]];
+          let cx2 = pts[0][0], cy2 = pts[0][1];
+          for (const [ddx, ddy] of pat) {
+            cx2 += c.sx * ddx * S * 0.9;
+            cy2 += c.sy * ddy * S * 0.9;
+            pts.push([cx2, cy2]);
+          }
+          // Filter traces that stay within 30% of corner
+          const maxX = Math.min(W * 0.3, M * 1.2);
+          const maxY = Math.min(H * 0.3, M * 1.2);
+          const valid = pts.every(([px, py]) =>
+            (c.sx > 0 ? px < c.ox + maxX : px > c.ox - maxX) &&
+            (c.sy > 0 ? py < c.oy + maxY : py > c.oy - maxY)
+          );
+          if (!valid) continue;
+
+          // Compute cumulative length per segment for dot travel
+          const segs = [];
+          let total = 0;
+          for (let i = 1; i < pts.length; i++) {
+            const dx = pts[i][0] - pts[i-1][0];
+            const dy = pts[i][1] - pts[i-1][1];
+            const len = Math.sqrt(dx*dx + dy*dy);
+            segs.push({ from: pts[i-1], to: pts[i], len, start: total });
+            total += len;
+          }
+
+          this.traces.push({
+            pts,
+            segs,
+            total,
+            // Stagger the travel phase per trace
+            phase: (ci * 7 + pi * 3.7) * 0.41 % 1,
+            speed: 0.00025 + pi * 0.00008,
+            accent2: (ci + pi) % 3 === 0,
+          });
+        }
+      });
+    }
+
+    animate() {
+      const { W, H, ctx } = this;
+      ctx.clearRect(0, 0, W, H);
+      this.t += 1;
+
+      const isDark = document.documentElement.getAttribute('data-theme') !== 'light';
+      const col1   = isDark ? 'rgba(212,168,90,'  : 'rgba(180,100,0,';
+      const col2   = isDark ? 'rgba(109,191,170,' : 'rgba(0,130,100,';
+      const lineAlpha  = isDark ? 0.13 : 0.16;
+      const dotAlpha   = isDark ? 0.85 : 0.9;
+      const glowAlpha  = isDark ? 0.22 : 0.28;
+
+      for (const tr of this.traces) {
+        const col = tr.accent2 ? col2 : col1;
+
+        // Draw trace lines
+        ctx.beginPath();
+        ctx.moveTo(tr.pts[0][0], tr.pts[0][1]);
+        for (let i = 1; i < tr.pts.length; i++) ctx.lineTo(tr.pts[i][0], tr.pts[i][1]);
+        ctx.strokeStyle = col + lineAlpha + ')';
+        ctx.lineWidth = 1.2;
+        ctx.lineCap = 'square';
+        ctx.lineJoin = 'miter';
+        ctx.stroke();
+
+        // Junction dots at waypoints
+        for (let i = 1; i < tr.pts.length - 1; i++) {
+          ctx.beginPath();
+          ctx.arc(tr.pts[i][0], tr.pts[i][1], 2, 0, Math.PI * 2);
+          ctx.fillStyle = col + (lineAlpha * 1.6) + ')';
+          ctx.fill();
+        }
+        // Via pad at start
+        ctx.beginPath();
+        ctx.arc(tr.pts[0][0], tr.pts[0][1], 3, 0, Math.PI * 2);
+        ctx.strokeStyle = col + (lineAlpha * 2) + ')';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Traveling glow dot along the trace
+        const travelPos = ((this.t * tr.speed + tr.phase) % 1) * tr.total;
+        for (const seg of tr.segs) {
+          if (travelPos < seg.start || travelPos > seg.start + seg.len) continue;
+          const t2 = (travelPos - seg.start) / seg.len;
+          const dx = seg.to[0] - seg.from[0], dy = seg.to[1] - seg.from[1];
+          const px = seg.from[0] + dx * t2;
+          const py = seg.from[1] + dy * t2;
+          // Outer glow
+          const g = ctx.createRadialGradient(px, py, 0, px, py, 10);
+          g.addColorStop(0,   col + dotAlpha  + ')');
+          g.addColorStop(0.3, col + glowAlpha + ')');
+          g.addColorStop(1,   col + '0)');
+          ctx.beginPath();
+          ctx.arc(px, py, 10, 0, Math.PI * 2);
+          ctx.fillStyle = g;
+          ctx.fill();
+          // Sharp core dot
+          ctx.beginPath();
+          ctx.arc(px, py, 1.8, 0, Math.PI * 2);
+          ctx.fillStyle = col + dotAlpha + ')';
+          ctx.fill();
+          break;
+        }
+      }
+
+      this._raf = requestAnimationFrame(() => this.animate());
+    }
+  }
+
   // ── Init background ──────────────────────────────────────────
   new SignalWaveBackground();
+  new PCBTraces();
   initMagnetic();
 
   // ── Cursor (mouse only) ─────────────────────────────────────
