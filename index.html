@@ -295,44 +295,54 @@
       .magnetic-wrap button { cursor: none; }
     }
     .hero-right { position: relative; z-index: 1; opacity: 0; animation: fadeIn 1.2s 0.7s forwards; }
-    .status-card { border-radius: 4px; padding: 2rem; position: relative; background: var(--bg2); overflow: hidden; }
-    /* Perpetual revolving border — composited transform:rotate() on static conic-gradient */
+    /* ── Status card — plain borders, hover glow ──────────────────
+       Green inner  : 2px static, always glowing softly inward
+       White/black  : 1px static middle ring, glow both sides
+       Gold outer   : 2px outline, dim at rest, lights up on hover
+       ---------------------------------------------------------------- */
+
+    .status-card {
+      border-radius: 4px;
+      padding: 2rem;
+      position: relative;
+      background: var(--bg2);
+      /* Middle white ring */
+      border: 1px solid rgba(255,255,255,0.45);
+      box-shadow:
+        0 0 5px 1px rgba(255,255,255,0.10),
+        inset 0 0 5px 1px rgba(255,255,255,0.07);
+      /* Gold outer ring — dim at rest */
+      outline: 2px solid rgba(212,168,90,0.18);
+      outline-offset: 5px;
+      transition: outline-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    /* Gold outer — lights up on hover */
+    .status-card:hover {
+      outline-color: rgba(212,168,90,0.90);
+      box-shadow:
+        0 0 5px 1px rgba(255,255,255,0.10),
+        inset 0 0 5px 1px rgba(255,255,255,0.07),
+        0 0 0 7px transparent,          /* outline-offset gap — no visual effect */
+        0 0 18px 4px rgba(212,168,90,0.35);  /* outer gold glow beyond outline */
+    }
+
+    /* Green inner ring — static, always present */
     .status-card::before {
       content: '';
       position: absolute;
-      inset: -2px;
-      border-radius: 5px;
-      background: conic-gradient(
-        from 0deg,
-        transparent 0deg,
-        transparent 60deg,
-        var(--accent) 80deg,
-        var(--accent2) 120deg,
-        var(--accent) 160deg,
-        transparent 180deg,
-        transparent 240deg,
-        var(--accent2) 260deg,
-        var(--accent) 300deg,
-        transparent 360deg
-      );
-      animation: border-revolve 12s linear infinite;
-      will-change: transform;
+      inset: 5px;
+      border-radius: 3px;
+      border: 2px solid rgba(109,191,170,0.70);
+      box-shadow:
+        inset 0 0 10px 2px rgba(109,191,170,0.25),
+        0 0 8px 1px rgba(109,191,170,0.15);
+      pointer-events: none;
       z-index: 0;
     }
-    .status-card::after {
-      content: '';
-      position: absolute;
-      inset: 1px;
-      border-radius: 4px;
-      background: var(--bg2);
-      z-index: 0;
-    }
-    @keyframes border-revolve {
-      from { transform: rotate(0deg); }
-      to   { transform: rotate(360deg); }
-    }
+
     .status-card .status-label,
-    .status-card .status-items { position: relative; z-index: 1; }
+    .status-card .status-items { position: relative; z-index: 3; }
     .status-label { font-family: var(--mono); font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
     .status-dot { position: relative; width: 8px; height: 8px; flex-shrink: 0; }
     .status-dot::before, .status-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; }
@@ -844,7 +854,17 @@
     }
     html[data-theme="light"] .status-card {
       background: var(--bg2);
-      border-color: rgba(0,0,0,0.14);
+      border-color: rgba(0,0,0,0.50);
+      box-shadow:
+        0 0 5px 1px rgba(0,0,0,0.08),
+        inset 0 0 5px 1px rgba(0,0,0,0.05);
+    }
+    html[data-theme="light"] .status-card:hover {
+      outline-color: rgba(212,168,90,0.90);
+      box-shadow:
+        0 0 5px 1px rgba(0,0,0,0.08),
+        inset 0 0 5px 1px rgba(0,0,0,0.05),
+        0 0 18px 4px rgba(212,168,90,0.30);
     }
     html[data-theme="light"] .project-card,
     html[data-theme="light"] .app-card,
@@ -1071,17 +1091,7 @@
     @media (max-width: 480px)  { :root { --nav-h: 60px; } }
     /* scroll-margin-top removed — anchor scroll handled exclusively by JS goTo() */
 
-    /* ── Light theme: animated borders use dark-mode accent colours ─── */
-    html[data-theme="light"] .status-card::before {
-      background: conic-gradient(
-        from 0deg,
-        transparent 0deg,  transparent 60deg,
-        #d4a85a 80deg,     #6dbfaa 120deg,
-        #d4a85a 160deg,    transparent 180deg,
-        transparent 240deg,#6dbfaa 260deg,
-        #d4a85a 300deg,    transparent 360deg
-      );
-    }
+    /* ── Light theme: dot borders use hardcoded accent colours ─── */
     html[data-theme="light"] .project-card::after  { background: #d4a85a; }
     html[data-theme="light"] .app-card::before     { background: #6dbfaa; }
     html[data-theme="light"] .divider::before      { border-top-color: #d4a85a; filter: drop-shadow(0 0 5px #d4a85a) drop-shadow(0 0 2px #d4a85a); }
