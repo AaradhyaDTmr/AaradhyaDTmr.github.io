@@ -59,6 +59,19 @@ Mobile FCP 3.0 s / LCP 4.3 s on slow-4G simulation. EmailJS (65 KiB) is an irred
 - **Google Analytics 4** (GA4) — Visitor tracking, CV download events, contact form conversion events
 - **Canvas API** — Background animation layers (if applicable)
 
+## `index.html` Build & Architecture
+
+This portfolio is a single-file static build located in `index.html`. It does not require a bundler, transpiler, or build step.
+
+- **Single entry file**: all markup, styles, data, and behavior live in `index.html`.
+- **Data-driven rendering**: site content is defined in one `DATA` object, then injected into the DOM via `renderHero()`, `renderNav()`, `renderProjects()`, `renderApps()`, `renderExperience()`, `renderSkills()`, `renderAchievements()`, `renderAbout()`, `renderContact()`, and `renderFooter()`.
+- **Pure Vanilla JS**: uses template strings, `document.createElement`, `innerHTML`, `querySelectorAll`, and DOM event listeners.
+- **Smooth anchor scrolling**: internal links (`href="#..."`) use a custom scroll handler that accounts for the fixed top navigation bar and prevents incorrect landing positions.
+- **Contact form fallback chain**: the submit handler tries EmailJS first, then Formspree, then `mailto:` as a last-resort fallback.
+- **Mailto behavior**: the email contact item is rendered as a direct `mailto:` link without `target="_blank"`, avoiding blank-tab behavior in browsers that handle mail links internally.
+- **Accessibility-first**: includes skip links, `aria-label`, `aria-expanded` management, landmark roles, keyboard section jumps, and `prefers-reduced-motion` support.
+- **Performance optimisations**: fonts are loaded non-blocking, inline SVG favicon is used, and third-party scripts are limited to EmailJS and GA4.
+
 ## Profile Photo & CV
 
 **Profile photo:** Add `photo.png` to the repo root (recommended: ~400×500 px minimum). The config already references `profilePhoto: "photo.png"` — just push the file.
