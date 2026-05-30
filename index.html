@@ -1062,6 +1062,97 @@
     .divider-wrap .divider:first-of-type::before,
     .divider-wrap .divider:first-of-type::after { display: none; }
 
+    /* ── Light theme: animated borders use dark-mode accent colours ─── */
+    /* All CSS-animated border/glow elements are pinned to the gold/teal  */
+    /* palette from dark mode so the animations look identical in both    */
+    /* themes. Static UI accents (text, icons, etc.) keep --accent as-is. */
+
+    /* Status card revolving conic border */
+    html[data-theme="light"] .status-card::before {
+      background: conic-gradient(
+        from var(--border-angle, 0deg),
+        transparent 0deg,
+        transparent 60deg,
+        #d4a85a 80deg,
+        #6dbfaa 120deg,
+        #d4a85a 160deg,
+        transparent 180deg,
+        transparent 240deg,
+        #6dbfaa 260deg,
+        #d4a85a 300deg,
+        transparent 360deg
+      );
+    }
+
+    /* Project card top-edge sweep */
+    html[data-theme="light"] .project-card::after {
+      background: #d4a85a;
+    }
+
+    /* App card bottom-edge sweep */
+    html[data-theme="light"] .app-card::before {
+      background: #6dbfaa;
+    }
+
+    /* Section divider arcs */
+    html[data-theme="light"] .divider::before {
+      border-top-color: #d4a85a;
+      filter: drop-shadow(0 0 5px #d4a85a) drop-shadow(0 0 2px #d4a85a);
+    }
+    html[data-theme="light"] .divider::after {
+      border-top-color: #6dbfaa;
+      filter: drop-shadow(0 0 4px #6dbfaa);
+    }
+
+    /* Divider node glow */
+    html[data-theme="light"] .divider-node {
+      border-color: #d4a85a;
+      box-shadow: 0 0 6px rgba(212,168,90,0.35);
+    }
+
+    /* About photo revolving ring */
+    html[data-theme="light"] .about-photo-ring .ring-arc {
+      stroke: #d4a85a;
+      filter: drop-shadow(0 0 4px #d4a85a);
+    }
+    html[data-theme="light"] .about-photo-ring .ring-arc-2 {
+      stroke: #6dbfaa;
+    }
+    html[data-theme="light"] .about-photo-wrap::before {
+      border-color: #d4a85a;
+    }
+
+    /* Contact link revolving icon ring */
+    html[data-theme="light"] .contact-link-ring .ring-arc {
+      stroke: #d4a85a;
+      filter: drop-shadow(0 0 3px #d4a85a);
+    }
+    html[data-theme="light"] .contact-link-ring .ring-arc-2 {
+      stroke: #6dbfaa;
+    }
+
+    /* Contact link left-edge bar on hover */
+    html[data-theme="light"] .contact-link::before {
+      background: #d4a85a;
+    }
+
+    /* Scroll progress bar */
+    html[data-theme="light"] .scroll-progress {
+      background: linear-gradient(90deg, #d4a85a, #6dbfaa, #d4a85a) !important;
+    }
+
+    /* Status dot (live indicator) */
+    html[data-theme="light"] .status-dot::before {
+      background: #6dbfaa;
+      box-shadow: 0 0 5px #6dbfaa;
+    }
+    html[data-theme="light"] .status-dot::after {
+      border-color: #6dbfaa;
+    }
+    html[data-theme="light"] .status-dot-ring2 {
+      border-color: #6dbfaa;
+    }
+
   </style>
 </head>
 <body>

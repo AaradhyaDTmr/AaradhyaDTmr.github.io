@@ -14,7 +14,7 @@ This site showcases my work as an Electronics, Communication and Information Eng
 - **Custom cursor animation** (pointer: fine only — keyboard/touch safe)
 - **Glassmorphism & depth effects** — modern aesthetic with backdrop blur and layered shadows
 - **Smooth scrolling navigation** with active-section highlighting
-- **Light / dark theme toggle** with smooth transitions
+- **Light / dark theme toggle** with smooth transitions and consistent animated accent borders in both themes
 - **Back-to-top button** (appears after scrolling 400 px)
 - **Profile photo** with grayscale-to-colour hover effect (`loading="lazy"`)
 - **Proficiency dot scale** (●●● / ●●○ / ●○○) replacing arbitrary skill bars
