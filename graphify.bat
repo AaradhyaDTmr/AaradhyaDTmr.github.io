@@ -1,5 +1,6 @@
 @echo off
 setlocal enabledelayedexpansion
+pushd "%~dp0" || exit /b 1
 title Graphify Universal Offline Visualizer
 cls
 
@@ -22,12 +23,12 @@ if exist "graphify-out\cache\" (
 echo.
 echo [2/3] Running Fast Local AST Re-Extraction (No LLM)...
 :: Using native update syntax to guarantee 0% cloud api connectivity
-call graphify update .
+call graphify.exe update . --force
 
 echo.
 echo [3/3] Generating D3 Interactive Collapsible Architecture Tree...
 :: Builds the interactive offline webpage 
-call graphify tree --output graphify-out\GRAPH_TREE.html
+call graphify.exe tree --graph graphify-out\graph.json --output graphify-out\GRAPH_TREE.html
 
 echo.
 echo -------------------------------------------------------
@@ -43,4 +44,5 @@ echo.
 echo =======================================================
 echo   PIPELINE COMPLETE. YOU CAN CLOSE THIS WINDOW.
 echo =======================================================
+popd
 pause
