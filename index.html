@@ -57,18 +57,17 @@
   <!-- Favicon (inline SVG — no extra file needed) -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%230d0e11'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='13' font-weight='400' fill='%23d4a85a'>ADT</text></svg>" />
 
-  <!-- Google Analytics 4 -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P38642CDGB"></script>
+  <!-- Google Analytics 4 — deferred to after page load to avoid blocking FCP -->
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-P38642CDGB');
   </script>
 
   <!-- Fonts — non-blocking async load to eliminate render-blocking penalty -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <!-- Preload LCP-critical assets -->
+  <link rel="preload" as="image" href="photo.png" />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500&display=swap" />
   <link rel="stylesheet" media="print" onload="this.media='all'" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500&display=swap" />
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@300;400;500&display=swap" /></noscript>
@@ -144,7 +143,7 @@
     /* will-change hints for GPU compositing */
     .hero-glow         { will-change: transform; }
     .about-photo-ring  { will-change: opacity; }
-    .scroll-progress   { will-change: width; }
+    .scroll-progress   { will-change: transform; }
     .cursor-ring       { will-change: transform, width, height; }
     .project-card::after, .app-card::before { will-change: transform; }
     .reveal            { will-change: opacity, transform; }
@@ -401,7 +400,7 @@
       width: auto;
       height: 1px;
       background: var(--line);
-      overflow: visible;
+      overflow: hidden;
     }
     /* Revolving arc — CW primary */
     .divider::before {
@@ -409,13 +408,13 @@
       position: absolute;
       top: -1.5px;
       left: 0;
-      right: 0;
+      width: 15%;
       height: 4px;
       background: transparent;
       border-top: 2.5px solid var(--accent);
       filter: drop-shadow(0 0 5px var(--accent)) drop-shadow(0 0 2px var(--accent));
       border-radius: 2px;
-      clip-path: inset(0 85% 0 0);
+      transform: translateX(-110%);
       animation: arc-sweep-cw 5s linear infinite;
       opacity: 0.9;
     }
@@ -424,30 +423,28 @@
       content: '';
       position: absolute;
       top: -1px;
-      left: 0;
       right: 0;
+      width: 10%;
       height: 3px;
       background: transparent;
       border-top: 1.5px solid var(--accent2);
       filter: drop-shadow(0 0 4px var(--accent2));
       border-radius: 2px;
-      clip-path: inset(0 0 0 93%);
+      transform: translateX(1100%);
       animation: arc-sweep-ccw 7s linear infinite;
       opacity: 0.6;
     }
     @keyframes arc-sweep-cw {
-      0%   { clip-path: inset(0 100% 0 0);   opacity: 0;    }
+      0%   { transform: translateX(-110%); opacity: 0; }
       5%   { opacity: 0.85; }
-      50%  { clip-path: inset(0 50%  0 0);   }
       95%  { opacity: 0.85; }
-      100% { clip-path: inset(0 0%   0 100%); opacity: 0; }
+      100% { transform: translateX(767%); opacity: 0; }
     }
     @keyframes arc-sweep-ccw {
-      0%   { clip-path: inset(0 0 0 100%);   opacity: 0;    }
+      0%   { transform: translateX(1100%); opacity: 0; }
       5%   { opacity: 0.55; }
-      50%  { clip-path: inset(0 0    0 50%); }
       95%  { opacity: 0.55; }
-      100% { clip-path: inset(0 100% 0 0%);  opacity: 0; }
+      100% { transform: translateX(-1100%); opacity: 0; }
     }
 
     /* Projects */
@@ -695,7 +692,7 @@
     .footer-socials a svg { width: 16px; height: 16px; pointer-events: none; }
 
     /* Scroll progress bar */
-    .scroll-progress { position: fixed; top: 0; left: 0; width: 0%; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); z-index: 9999; transition: width 0.1s linear; }
+    .scroll-progress { position: fixed; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); z-index: 9999; transform: scaleX(0); transform-origin: left; transition: transform 0.1s linear; }
 
     /* Contact form */
     .contact-form { display: flex; flex-direction: column; gap: 1rem; }
@@ -915,17 +912,6 @@
     .hero-glow { animation: glow-drift 20s ease-in-out infinite; }
 
     /* Nav logo accent dot — static */
-
-    /* Scroll progress bar — animated gradient flow */
-    @keyframes gradient-flow {
-      0%   { background-position: 0% 50%; }
-      100% { background-position: 200% 50%; }
-    }
-    .scroll-progress {
-      background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent)) !important;
-      background-size: 200% auto !important;
-      animation: gradient-flow 2.8s linear infinite;
-    }
 
     /* Contact links — revolving ring on icon, matching photo ring style */
     .contact-link::before {
@@ -2277,7 +2263,7 @@
     scrollPct.classList.toggle('visible', scrollY > 400);
     const docHeight = document.documentElement.scrollHeight - window.innerHeight;
     const pct = docHeight > 0 ? Math.round(scrollY / docHeight * 100) : 0;
-    progressBar.style.width = pct + '%';
+    progressBar.style.transform = 'scaleX(' + (pct / 100) + ')';
     scrollPct.textContent = pct + '%';
   }, { passive: true });
   backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
@@ -2301,6 +2287,18 @@
   const FORMSPREE_ID        = 'mrejgjyd';
 
   window.addEventListener('load', function() {
+  // Load GA4 after page paint — eliminates FCP blocking
+  (function() {
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-P38642CDGB';
+    document.head.appendChild(s);
+    s.onload = function() {
+      gtag('js', new Date());
+      gtag('config', 'G-P38642CDGB');
+    };
+  })();
+
   emailjs.init(EMAILJS_PUBLIC_KEY);
 
   document.getElementById('contactForm').addEventListener('submit', async function(e) {
