@@ -1350,7 +1350,10 @@
       { label: "Fellowship", value: "Fuse AI Fellow · NSSR DataCamp (C2) — SQL Associate next" },
       { label: "Stack",      value: "Python · Kotlin · FastAPI · Docker · PostgreSQL · XGBoost · SHAP" },
       { label: "Interests",  value: "Embedded Systems · AI/ML · Edge AI · IT4D 2026 Paper" },
+      { label: "Last Updated", value: "Loading latest commit..." },
     ],
+    gitRepo: "AaradhyaDTmr/AaradhyaDTmr.github.io",
+    gitFile: "index.html",
 
     // ── Projects ─────────────────────────────────────────────
     projects: [
@@ -1852,17 +1855,57 @@
     });
   }
 
+  async function fetchLastCommitDate(repo, filePath) {
+    try {
+      const url = `https://api.github.com/repos/${repo}/commits?path=${encodeURIComponent(filePath)}&per_page=1`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`GitHub API returned ${response.status}`);
+      }
+      const commits = await response.json();
+      if (!Array.isArray(commits) || commits.length === 0) {
+        throw new Error('No commits found for file.');
+      }
+      return commits[0]?.commit?.committer?.date || commits[0]?.commit?.author?.date || null;
+    } catch (error) {
+      console.warn('Unable to load git commit date:', error);
+      return null;
+    }
+  }
+
+  function formatDateTime(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return value;
+    const pad = n => String(n).padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())} ${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
+  }
+
+  async function updateLastUpdatedStatus() {
+    if (!DATA.gitRepo || !DATA.gitFile) return;
+    const commitDate = await fetchLastCommitDate(DATA.gitRepo, DATA.gitFile);
+    const statusItem = DATA.status.find(s => s.label === 'Last Updated');
+    if (!statusItem) return;
+    if (!commitDate) {
+      statusItem.value = 'Last commit unavailable';
+      return;
+    }
+    statusItem.value = formatDateTime(commitDate);
+  }
+
   // ── Boot ────────────────────────────────────────────────────
-  renderHero();
-  renderNav();
-  renderProjects();
-  renderApps();
-  renderExperience();
-  renderSkills();
-  renderAchievements();
-  renderAbout();
-  renderContact();
-  renderFooter();
+  (async function init() {
+    await updateLastUpdatedStatus();
+    renderHero();
+    renderNav();
+    renderProjects();
+    renderApps();
+    renderExperience();
+    renderSkills();
+    renderAchievements();
+    renderAbout();
+    renderContact();
+    renderFooter();
+  })();
 
   // ── Anchor scroll with nav offset ───────────────────────────
   (function () {
