@@ -1293,7 +1293,7 @@
             </div>
             <div class="form-field">
               <label class="form-label" for="form-email">Email</label>
-              <input class="form-input" id="form-email" type="email" placeholder="you@example.com" required />
+              <input class="form-input" id="form-email" type="email" placeholder="you@example.com" required pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}" />
             </div>
           </div>
           <div class="form-field">
@@ -2367,13 +2367,38 @@
 
   document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const btn    = document.getElementById('form-btn');
-    const status = document.getElementById('form-status');
+    const btn       = document.getElementById('form-btn');
+    const status    = document.getElementById('form-status');
+    const nameInput = document.getElementById('form-name');
+    const emailInput = document.getElementById('form-email');
+    const messageInput = document.getElementById('form-message');
+
+    if (!emailInput.checkValidity()) {
+      status.textContent = 'Please enter a valid email address.';
+      status.style.color = 'var(--accent)';
+      emailInput.focus();
+      return;
+    }
+
+    if (!nameInput.value.trim()) {
+      status.textContent = 'Please enter your name.';
+      status.style.color = 'var(--accent)';
+      nameInput.focus();
+      return;
+    }
+
+    if (!messageInput.value.trim()) {
+      status.textContent = 'Please enter a message.';
+      status.style.color = 'var(--accent)';
+      messageInput.focus();
+      return;
+    }
+
     const formData = {
-      name:    document.getElementById('form-name').value,
-      email:   document.getElementById('form-email').value,
+      name:    nameInput.value,
+      email:   emailInput.value,
       subject: document.getElementById('form-subject').value || 'Portfolio Contact',
-      message: document.getElementById('form-message').value,
+      message: messageInput.value,
     };
     btn.disabled = true;
     btn.textContent = 'Sending...';
