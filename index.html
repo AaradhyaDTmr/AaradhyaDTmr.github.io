@@ -733,8 +733,7 @@
     /* Animations */
     @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.8s ease, transform 0.8s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.45s ease, transform 0.45s ease; }    .reveal.visible { opacity: 1; transform: translateY(0); }
 
     /* Skip to content */
     .skip-link { position: absolute; top: -100px; left: 1rem; background: var(--accent); color: var(--bg); font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.6rem 1.2rem; border-radius: 2px; text-decoration: none; z-index: 10000; transition: top 0.2s; }
@@ -1647,7 +1646,7 @@
           </div>
         </div>` : '';
       grid.innerHTML += `
-        <div class="project-card glass-card reveal" style="transition-delay: ${i * 0.15}s">
+        <div class="project-card glass-card reveal" style="transition-delay: ${i * 0.06}s">
           <div class="project-index">P — ${idx} ${statusHtml}</div>
           <h3 class="project-title">${p.title}</h3>
           <p class="project-desc">${p.desc}</p>
@@ -1671,7 +1670,7 @@
         `<a class="app-link ${l.type}" href="${l.href}" target="_blank" rel="noopener">${l.label} ↗</a>`
       ).join('');
       grid.innerHTML += `
-        <div class="app-card glass-card reveal" style="transition-delay: ${i * 0.15}s">
+        <div class="app-card glass-card reveal" style="transition-delay: ${i * 0.06}s">
           <div class="app-icon">${app.icon}</div>
           <div class="app-title">${app.title}</div>
           <div class="app-desc">${app.desc}</div>
@@ -1708,7 +1707,7 @@
         return `<div class="skill-row"><span class="skill-name">${s.name}</span><div class="skill-dots">${dots}</div></div>`;
       }).join('');
       layout.innerHTML += `
-        <div class="skill-group glass-card reveal" style="transition-delay: ${i * 0.15}s">
+        <div class="skill-group glass-card reveal" style="transition-delay: ${i * 0.06}s">
           <div class="skill-group-title">${g.title}</div>
           <div class="skill-list">${rows}</div>
         </div>`;
@@ -1858,7 +1857,10 @@
   async function fetchLastCommitDate(repo, filePath) {
     try {
       const url = `https://api.github.com/repos/${repo}/commits?path=${encodeURIComponent(filePath)}&per_page=1`;
-      const response = await fetch(url);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 3000);
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeoutId);
       if (!response.ok) {
         throw new Error(`GitHub API returned ${response.status}`);
       }
@@ -1901,20 +1903,30 @@
   }
 
   // ── Boot ────────────────────────────────────────────────────
-  (async function init() {
-    await updateLastUpdatedStatus();
-    renderHero();
-    renderNav();
-    renderProjects();
-    renderApps();
-    renderExperience();
-    renderSkills();
-    renderAchievements();
-    renderAbout();
-    renderContact();
-    renderFooter();
-  })();
-
+  (function init() {
+  renderHero();
+  renderNav();
+  renderProjects();
+  renderApps();
+  renderExperience();
+  renderSkills();
+  renderAchievements();
+  renderAbout();
+  renderContact();
+  renderFooter();
+  // Update "Last Updated" status item in background after render
+  updateLastUpdatedStatus().then(() => {
+    const statusItem = DATA.status.find(s => s.label === 'Last Updated');
+    if (!statusItem) return;
+    const items = document.querySelectorAll('#status-items .status-item');
+    items.forEach(item => {
+      const label = item.querySelector('.status-item-label');
+      if (label && label.textContent.trim() === 'Last Updated') {
+        item.querySelector('.status-item-value').textContent = statusItem.value;
+      }
+    });
+  });
+})();
   // ── Anchor scroll with nav offset ───────────────────────────
   (function () {
     var nav = document.getElementById('nav');
@@ -2328,7 +2340,7 @@
   // ── Reveal on scroll ────────────────────────────────────────
   const revealObs = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-  }, { threshold: 0.12 });
+  }, { threshold: 0.05 });
   document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
 
   // ── Contact form — EmailJS → Formspree → mailto fallback ────
