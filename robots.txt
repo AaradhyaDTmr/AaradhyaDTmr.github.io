@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aaradhyadtmr.github.io/sitemap.xml
