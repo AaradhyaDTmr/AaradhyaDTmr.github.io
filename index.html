@@ -3943,25 +3943,24 @@
       });
     }
 
+    // Reads assets/js/last-commit.json, written by the "Stamp last
+    // commit" GitHub Action on every push to main. Previously this made
+    // a live call to api.github.com (see git history / tracker) — that
+    // hit GitHub's unauthenticated rate limit (403, 60 req/hr per IP)
+    // during active development, showing "Last commit unavailable" even
+    // when the site itself was fine. This is a same-origin static-file
+    // read instead: no rate limit, works offline/downloaded too.
     async function fetchLastCommitDate(repo, filePath) {
       try {
-        const url = `https://api.github.com/repos/${repo}/commits?path=${encodeURIComponent(filePath)}&per_page=1`;
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 3000);
-        const response = await fetch(url, { signal: controller.signal });
-        clearTimeout(timeoutId);
+        const response = await fetch("assets/js/last-commit.json", {
+          cache: "no-store",
+        });
         if (!response.ok) {
-          throw new Error(`GitHub API returned ${response.status}`);
+          throw new Error(`Static commit file returned ${response.status}`);
         }
-        const commits = await response.json();
-        if (!Array.isArray(commits) || commits.length === 0) {
-          throw new Error("No commits found for file.");
-        }
-        return (
-          commits[0]?.commit?.committer?.date ||
-          commits[0]?.commit?.author?.date ||
-          null
-        );
+        const data = await response.json();
+        fetchLastCommitDate.lastMeta = data; // stash for title/tooltip use
+        return data?.date || null;
       } catch (error) {
         console.warn("Unable to load git commit date:", error);
         return null;
@@ -4012,8 +4011,12 @@
         items.forEach((item) => {
           const label = item.querySelector(".status-item-label");
           if (label && label.textContent.trim() === "Last Updated") {
-            item.querySelector(".status-item-value").textContent =
-              statusItem.value;
+            const valueEl = item.querySelector(".status-item-value");
+            valueEl.textContent = statusItem.value;
+            const meta = fetchLastCommitDate.lastMeta;
+            if (meta?.shortSha && meta?.message) {
+              valueEl.title = `${meta.shortSha} — ${meta.message}`;
+            }
           }
         });
       });
