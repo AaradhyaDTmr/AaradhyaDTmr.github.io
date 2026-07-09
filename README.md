@@ -31,7 +31,7 @@ This site showcases my work as an Electronics, Communication and Information Eng
 ## Lighthouse Scores **(May 2026)**
 
 | Score | Performance | Accessibility | Best Practices | SEO |
-|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | **Desktop** | 98 | 100 | 100 | 100 |
 | **Mobile** | 78 | 100 | 100 | 100 |
 
