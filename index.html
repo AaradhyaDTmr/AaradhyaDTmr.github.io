@@ -323,12 +323,13 @@
       align-items: center;
       padding: 1.5rem 3rem;
       border-bottom: 1px solid transparent;
-      transition: border-color 0.3s, background 0.3s, backdrop-filter 0.3s
+      transition: border-color 0.3s, background 0.3s, backdrop-filter 0.3s, -webkit-backdrop-filter 0.3s
     }
 
     nav.scrolled {
       border-color: var(--line);
       background: var(--nav-scrolled-bg);
+      -webkit-backdrop-filter: blur(12px);
       backdrop-filter: blur(12px)
     }
 
@@ -468,8 +469,8 @@
       z-index: 0;
       background: linear-gradient(90deg, var(--line) 1px, transparent 1px), linear-gradient(0deg, var(--line) 1px, transparent 1px);
       background-size: 80px 80px;
-      mask-image: radial-gradient(ellipse 120% 120% at 50% 50%, black 20%, transparent 75%);
-      -webkit-mask-image: radial-gradient(ellipse 120% 120% at 50% 50%, black 20%, transparent 75%)
+      -webkit-mask-image: radial-gradient(ellipse 120% 120% at 50% 50%, black 20%, transparent 75%);
+      mask-image: radial-gradient(ellipse 120% 120% at 50% 50%, black 20%, transparent 75%)
     }
 
     .hero-glow {
@@ -637,8 +638,8 @@
 
     .glass-card {
       background: var(--glass-bg);
-      backdrop-filter: blur(var(--glass-blur));
       -webkit-backdrop-filter: blur(var(--glass-blur));
+      backdrop-filter: blur(var(--glass-blur));
       border: 1px solid var(--glass-border);
       box-shadow: var(--card-shadow)
     }
@@ -1507,6 +1508,7 @@
       border-bottom: 1px solid var(--line);
       gap: 0.3rem;
       background: rgba(13, 14, 17, 0.6);
+      -webkit-backdrop-filter: blur(8px);
       backdrop-filter: blur(8px)
     }
 
