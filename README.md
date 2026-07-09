@@ -28,10 +28,10 @@ This site showcases my work as an Electronics, Communication and Information Eng
 - **Apps showcase** — Live applications and tools
 - **Achievements section** — Training, certifications, and recognitions
 
-## Lighthouse Scores *(May 2026)*
+## Lighthouse Scores **(May 2026)**
 
-| | Performance | Accessibility | Best Practices | SEO |
-|---|---|---|---|---|
+| Score | Performance | Accessibility | Best Practices | SEO |
+| --- | --- | --- | --- | --- | --- |
 | **Desktop** | 98 | 100 | 100 | 100 |
 | **Mobile** | 78 | 100 | 100 | 100 |
 
@@ -74,9 +74,9 @@ This portfolio is a single-file static build located in `index.html`. It does no
 
 ## Profile Photo & CV
 
-**Profile photo:** Add `photo.png` to the repo root (recommended: ~400×500 px minimum). The config already references `profilePhoto: "photo.png"` — just push the file.
+**Profile photo:** Place the profile image in `assets/images/` (recommended: ~400×500 px minimum). The config already references `profilePhoto: "assets/images/photo.png"` — just push the file.
 
-**CV download:** Place `AARADHYA_DEV_TAMRAKAR_CV.pdf` in the repo root. The hero **Download CV** button is already linked — no code changes needed.
+**CV download:** Place `AARADHYA_DEV_TAMRAKAR_CV.pdf` in `assets/docs/`. The hero **Download CV** button is already linked — no code changes needed.
 
 ## Content Editing Guide
 
@@ -112,8 +112,8 @@ Deployed automatically via GitHub Pages. Changes pushed to `main` go live at **[
 ## Contact
 
 | Channel | Detail |
-|---------|--------|
-| Email | aaradhyadevtmr@gmail.com |
+| --------- | -------- |
+| Email | [aaradhyadevtmr@gmail.com](mailto:aaradhyadevtmr@gmail.com) |
 | LinkedIn | [aaradhya-dev-tamrakar](https://www.linkedin.com/in/aaradhya-dev-tamrakar) |
 | GitHub | [AaradhyaDT](https://github.com/AaradhyaDT) |
 | Instagram | [@aaradhya_dev_tamrakar](https://instagram.com/aaradhya_dev_tamrakar) |
@@ -121,12 +121,12 @@ Deployed automatically via GitHub Pages. Changes pushed to `main` go live at **[
 
 ## License
 
-This project is licensed under an **All Rights Reserved** proprietary license. 
+This project is licensed under an **All Rights Reserved** proprietary license.
 
-**All code, design, and content are the exclusive property of Aaradhya Dev Tamrakar.** 
+**All code, design, and content are the exclusive property of Aaradhya Dev Tamrakar.**
 
-No part of this website may be copied, modified, distributed, or used without **explicit written permission**. 
+No part of this website may be copied, modified, distributed, or used without **explicit written permission**.
 
-To request permission to use or adapt any part of this portfolio, please contact: **aaradhyadevtmr@gmail.com**
+To request permission to use or adapt any part of this portfolio, please contact: **<aaradhyadevtmr@gmail.com>**
 
 See the [LICENSE](LICENSE) file for full details.
