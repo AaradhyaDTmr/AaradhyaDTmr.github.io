@@ -11,18 +11,12 @@
   
   <!-- Instant Meta Refresh -->
   <meta http-equiv="refresh" content="0; url=https://aaradhyadt.github.io/" />
-  
-  <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://aaradhyadt.github.io/" />
-  <meta property="og:title" content="Aaradhya Dev Tamrakar — Electronics Engineer &amp; AI/ML Developer" />
-  <meta property="og:description" content="The official portfolio has moved to https://aaradhyadt.github.io/." />
-  <meta property="og:image" content="https://aaradhyadt.github.io/assets/images/og-image.jpg" />
 
   <!-- JavaScript Instant Redirect -->
   <script>
     (function () {
-      var target = "https://aaradhyadt.github.io/" + (window.location.search || "") + (window.location.hash || "");
+      var pathname = window.location.pathname.replace(/^\/+/, "");
+      var target = "https://aaradhyadt.github.io/" + (pathname ? pathname : "") + (window.location.search || "") + (window.location.hash || "");
       window.location.replace(target);
     })();
   </script>
@@ -114,10 +108,10 @@
 <body>
   <main class="redirect-card">
     <div class="spinner" aria-hidden="true"></div>
-    <h1>Portfolio Moved</h1>
-    <p>Aaradhya Dev Tamrakar's official portfolio has permanently relocated to <strong>aaradhyadt.github.io</strong>.</p>
+    <h1>Redirecting...</h1>
+    <p>This page has permanently moved to <strong>aaradhyadt.github.io</strong>.</p>
     <a class="redirect-btn" href="https://aaradhyadt.github.io/">
-      <span>Proceed to Portfolio</span>
+      <span>Go to New Domain</span>
       <span aria-hidden="true">→</span>
     </a>
   </main>
