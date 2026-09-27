@@ -1,6 +1,6 @@
 {
-  "sha": "c3711bc33d40e68369f0de43b63cd29d633ff37b",
-  "shortSha": "c3711bc",
-  "date": "2026-09-27T11:12:17+05:45",
-  "message": "Revert \"feat(seo): redirect domain and canonical authority to aaradhyadt.github.io\"\n"
+  "sha": "aa94a38b781550d33f8dc3587b6376d81abfece2",
+  "shortSha": "aa94a38",
+  "date": "2026-09-27T11:17:33+05:45",
+  "message": "ci: add GitHub Pages deployment workflow\n"
 }
